@@ -45,7 +45,7 @@ fi
 
 source $DOTFILES/zsh/scripts.sh
 
-#ftmuxp
+ftmuxp
 
 # Clearing the shell is now done with CTRL+g
 bindkey -r '^l'
