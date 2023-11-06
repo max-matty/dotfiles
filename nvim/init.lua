@@ -78,6 +78,7 @@ vim.cmd([[colorscheme gruvbox]])
        f = {
          name = "Fzf Searching", -- optional group name
          f = { "<cmd>Telescope find_files<cr>", "Files in directory" },
+         t = { "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", "Browse trees" },
          g = { "<cmd>Telescope live_grep<cr>", "Strings in directory" },
          c = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Strings in buffer" },
          b = { "<cmd>Telescope buffers<cr>", "Buffers" },
