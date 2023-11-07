@@ -103,8 +103,16 @@ workspace_auto_back_and_forth yes
 
 focus_follows_mouse no
 
-# avvio VM
-bindsym $mod+v exec virsh -c qemu:///system start VM-01 && sleep 2 && spicy -h localhost -p 5901
+bindsym $mod+Control+0 exec virsh -c qemu:///system start VM-00 && sleep 2 && spicy -h localhost -p 5900 -f
+bindsym $mod+Control+1 exec virsh -c qemu:///system start VM-01 && sleep 2 && spicy -h localhost -p 5901 -f
+bindsym $mod+Control+2 exec virsh -c qemu:///system start VM-02 && sleep 2 && spicy -h localhost -p 5902 -f
+bindsym $mod+Control+3 exec virsh -c qemu:///system start VM-03 && sleep 2 && spicy -h localhost -p 5903 -f
+bindsym $mod+Control+4 exec virsh -c qemu:///system start VM-04 && sleep 2 && spicy -h localhost -p 5904 -f
+bindsym $mod+Control+5 exec virsh -c qemu:///system start VM-05 && sleep 2 && spicy -h localhost -p 5905 -f
+bindsym $mod+Control+6 exec virsh -c qemu:///system start VM-06 && sleep 2 && spicy -h localhost -p 5906 -f
+bindsym $mod+Control+7 exec virsh -c qemu:///system start VM-07 && sleep 2 && spicy -h localhost -p 5907 -f
+bindsym $mod+Control+8 exec virsh -c qemu:///system start VM-08 && sleep 2 && spicy -h localhost -p 5908 -f
+bindsym $mod+Control+9 exec virsh -c qemu:///system start VM-09 && sleep 2 && spicy -h localhost -p 5909 -f
 
 # shortcut to lockscreen
 set $i3lockwall i3lock --nofork
@@ -233,7 +241,7 @@ exec urxvtc -name htop_scratchpad -e htop
 # set display resolution (VM)
 set $mode_display monitor [a]cer [s]amsung
 mode "$mode_display" {
-    bindsym d exec --no-startup-id sh "$HOME/.config/X11/acer-monitor.sh", mode "default"
+    bindsym a exec --no-startup-id sh "$HOME/.config/X11/asus-monitor.sh", mode "default"
     bindsym s exec --no-startup-id sh "$HOME/.config/X11/samsung-monitor.sh", mode "default"
     # back to normal: Enter or Escape
     bindsym Return mode "default"
