@@ -1,15 +1,9 @@
 
-# Istruzioni post installazione - Macchina Virtuale
+# Installazione Arch
 
-## Mappatura tastiera per ambiente 'X' e modifica tasto $mod di i3-wm
+L'automazione prevede la scelta tra l'installazione su Hard Disk fisico (`HD`) oppure su Macchina Virtuale (`VM`).  
+La scelta comporta il salvataggio della variabile `~/.screenlayout/var_inst` che viene verificata all'avvio della macchina impostando la configurazione schermo a 800x600 che può poi essere adattata allo schermo sia del portatile Asus che del display Samsun tramite la combinazione di tasti `$mod+a`.
 
-L'installazione non recepisce la mappatura `it` della tastiera in ambiente `X` (funziona invece in ambiente console).  
-Inoltre dobbiamo variare il tasto funzione del Window Manager `i3-wm` (da $mod4 a $mod1) per evitare conflitti con il medesimo tasto funzione utilizzato nella macchina *host*.  
-Pertanto al primo accesso dobbiamo entrare come `root` e fare le modifiche:  
-
-```
-# localectl --no-convert set-x11-keymap it
-# vi <user-home>/.config/i3/config
-# exit
-```
+E' cosigliabile fare partire la macchina dal viewer Spice.  
+E' già configurata in `i3-wm` la combinazione tasti `$mod+Mod1+[0-9]` per far funzionare la quale è sufficiente impostare la porta *spice* sulla Macchina Virtuale all'interno del componente *Display Spice*: 5901 per la combinazione `$mod+Mod1+1` fino a 5010 per la combinazione `$mod+Mod1+0`.
 
