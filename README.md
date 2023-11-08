@@ -1,6 +1,15 @@
 
 # Installazione Arch
 
+## Inizializzazione Neovim e Tmux
+
+Al primo avvio è necessario inizializzare i *plugins* di Neovim e Tmux:  
+
+- all'avvio Neovim aggiorna in automatico i plugins.
+- per Tmux è invece necessario avviando una sessione (`$mod-Return`) e digitare `PREFIX+I`.
+
+Con `PREFIX` che è la combinazione tasti `Ctrl+Space`.
+
 ## Risoluzione schermo x Macchina Virtuale
 
 L'automazione prevede la scelta tra l'installazione su Hard Disk fisico (`HD`) oppure su Macchina Virtuale (`VM`).  
