@@ -76,14 +76,15 @@ vim.cmd([[colorscheme gruvbox]])
          k = { "<cmd>vimgrep /^# \\|^## \\|^### / %<cr> | <cmd>copen<cr>", "h1|h2|h3 header" },
        },
        f = {
-         name = "Fzf Searching", -- optional group name
-         f = { "<cmd>Telescope find_files<cr>", "Files in directory" },
-         t = { "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", "Browse trees" },
-         g = { "<cmd>Telescope live_grep<cr>", "Strings in directory" },
-         c = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Strings in buffer" },
-         b = { "<cmd>Telescope buffers<cr>", "Buffers" },
-         r = { "<cmd>Telescope oldfiles<cr>", "Recent File" },
-         h = { "<cmd>Telescope help_tags<cr>", "Help" },    
+         name = "Fzf Searching...", -- optional group name
+         s = { "<cmd>Telescope find_files<cr>", "...files in directory recursively" },
+         t = { "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", "...files browsing directory trees" },
+         g = { "<cmd>Telescope live_grep<cr>", "...strings and files in directory recursively" },
+         c = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "...strings in current buffer" },
+         b = { "<cmd>Telescope buffers<cr>", "...open buffers" },
+         r = { "<cmd>Telescope oldfiles<cr>", "...recent files" },
+         h = { "<cmd>Telescope help_tags<cr>", "...help tags" },    
+         f = { "<cmd>Telescope search_dir_picker<cr>", "...strings and files in pre-selected dir" },    
        },
        g = {"<cmd>Glow<cr>", "Glow Rendering"},
      }, { prefix = '<leader>' })
