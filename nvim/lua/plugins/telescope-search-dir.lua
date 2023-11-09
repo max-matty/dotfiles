@@ -3,11 +3,15 @@
 
 return {
 
-	'smilovanovic/telescope-search-dir-picker.nvim',
---  enabled = false,
+  'smilovanovic/telescope-search-dir-picker.nvim',
+  --  enabled = false,
 
---	opts = {
+  config = function()
+    require('telescope').load_extension('search_dir_picker')
+  end,
+
+  --	opts = {
   --
---	}
+  --	}
 
 }
