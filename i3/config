@@ -146,8 +146,8 @@ for_window [class="Arandr"] floating enable
 for_window [title="notetaker_window"] floating enable
 
 # KeyBindig floating notetaking and grep searching
-bindsym $mod+n exec urxvtc -title notetaker_window -e sh /home/max/notes/notetaker
-bindsym $mod+Shift+n exec urxvtc -title notetaker_window -e nvim -c "Telescope grep_string cwd=/home/max/notes/md"
+bindsym $mod+n exec urxvtc -title notetaker_window -e sh /home/max/shared/Notes/notetaker
+bindsym $mod+Shift+n exec urxvtc -title notetaker_window -e nvim -c "Telescope grep_string cwd=/home/max/shared/Notes/md"
 
 # launch dunst and keybinding
 exec --no-startup-id dunst

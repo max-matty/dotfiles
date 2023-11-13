@@ -3,10 +3,10 @@
 
 return {
 
-	'ellisonleao/gruvbox.nvim',
+  'ellisonleao/gruvbox.nvim',
   priority = 1000,
   config = true,
---  enabled = false,
-  opts = ...
+  --  enabled = false,
 
 }
+

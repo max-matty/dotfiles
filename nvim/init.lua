@@ -1,24 +1,30 @@
 
+-- set python command path
 vim.g.python3_host_prog = '/usr/bin/python3'
 
 -- export note on savebuffer
 vim.api.nvim_create_autocmd( { "BufWritePost" }, {
-  pattern = { "*note-*.md" },
-  command = [[ !/home/max/notes/buildnote %:p ]],
+  pattern = { "*-note.md" },
+  command = [[ !/home/max/shared/Notes/buildnote %:p ]],
  })
-
 
 -- mapleader key
 vim.g.mapleader = ' '
+
+-- change links from '/link' to '.link'
+vim.cmd("set includeexpr=substitute(v:fname,'/','','')")
+
+-- add 'shared' directory to pah
+vim.cmd("set path+=/home/max/shared/**")
 
 -- paste from OS
 vim.opt.clipboard:append { "unnamedplus" }
 
 -- forget arrow keys
-vim.keymap.set('!', '<Up>', '<Nop>')
-vim.keymap.set('!', '<Down>', '<Nop>')
-vim.keymap.set('!', '<Left>', '<Nop>')
-vim.keymap.set('!', '<Right>', '<Nop>')
+--vim.keymap.set('!', '<Up>', '<Nop>')
+--vim.keymap.set('!', '<Down>', '<Nop>')
+--vim.keymap.set('!', '<Left>', '<Nop>')
+--vim.keymap.set('!', '<Right>', '<Nop>')
 
 -- set noswapfile
 vim.opt.swapfile = false
@@ -32,6 +38,9 @@ vim.opt.scrolloff = 5
 
 -- set line number
 vim.opt.number = true
+
+-- set conceallevel
+vim.opt.conceallevel = 2
 
 -- autoindent and tab space
 vim.opt.autoindent = true
@@ -64,38 +73,56 @@ require("lazy").setup("plugins")
 vim.o.background = "dark" -- or "light" for light mode
 vim.cmd([[colorscheme gruvbox]])
 
--- 'which-key.nvim -- quickfix Markdown Headers
- local wk = require("which-key")
-     wk.register({
-       p = {"<cmd>CocCommand markdown-preview-enhanced.openPreview<cr>", "Markdown Web Preview"},
-       u = {"<cmd>Telescope undo<cr>", "Telescope undo"},
-       m = {
-         name = "Fzf Markdown headers", -- optional group name
-         h = { "<cmd>vimgrep /^# / %<cr> | <cmd>copen<cr>", "h1 header" },
-         j = { "<cmd>vimgrep /^# \\|^## / %<cr> | <cmd>copen<cr>", "h1|h2 header" },
-         k = { "<cmd>vimgrep /^# \\|^## \\|^### / %<cr> | <cmd>copen<cr>", "h1|h2|h3 header" },
-       },
-       f = {
-         name = "Fzf Searching...", -- optional group name
-         s = { "<cmd>Telescope find_files<cr>", "...files in directory recursively" },
-         t = { "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", "...files browsing directory trees" },
-         g = { "<cmd>Telescope live_grep<cr>", "...strings and files in directory recursively" },
-         c = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "...strings in current buffer" },
-         b = { "<cmd>Telescope buffers<cr>", "...open buffers" },
-         r = { "<cmd>Telescope oldfiles<cr>", "...recent files" },
-         h = { "<cmd>Telescope help_tags<cr>", "...help tags" },    
-         f = { "<cmd>Telescope search_dir_picker<cr>", "...strings and files in pre-selected dir" },    
-       },
-       g = {"<cmd>Glow<cr>", "Glow Rendering"},
-     }, { prefix = '<leader>' })
+-- ALE
+vim.g.ale_use_neovim_diagnostics_api = 1
 
--- 'neoclide/coc.nvim'
-local keyset = vim.keymap.set
-function _G.check_back_space()
-    local col = vim.fn.col('.') - 1
-    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
-end
-local opts = {silent = true, noremap = true, expr = true, replace_keycodes = false}
-keyset("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
-keyset("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
+-- 'lspconfig' and 'cmp' completion
+-- Add additional capabilities supported by nvim-cmp
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local lspconfig = require('lspconfig')
+-- Enable some language servers
+  lspconfig.marksman.setup {
+    -- on_attach = my_custom_on_attach,
+    capabilities = capabilities, }
+-- luasnip setup
+local luasnip = require 'luasnip'
+-- nvim-cmp setup
+local cmp = require 'cmp'
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-e>'] = cmp.mapping.abort(), -- close completion window
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+  }),
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+    { name = 'path' },
+  },
+}
 
