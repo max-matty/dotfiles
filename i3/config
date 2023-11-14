@@ -2,7 +2,7 @@
 # delete this file and re-run i3-config-wizard(1).  
 # Complete reference at https://i3wm.org/docs/userguide.html
 
-set $mod Mod4
+set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 #font pango:OpenDyslexicAltNerdFontPropo-Regular 12
@@ -146,8 +146,8 @@ for_window [class="Arandr"] floating enable
 for_window [title="notetaker_window"] floating enable
 
 # KeyBindig floating notetaking and grep searching
-bindsym $mod+n exec urxvtc -title notetaker_window -e sh /home/max/shared/Notes/notetaker
-bindsym $mod+Shift+n exec urxvtc -title notetaker_window -e nvim -c "Telescope grep_string cwd=/home/max/shared/Notes/md"
+bindsym $mod+m exec urxvtc -title notetaker_window -e sh /home/max/shared/Workspace/Notes/notetaker
+bindsym $mod+Shift+m exec urxvtc -title notetaker_window -e nvim -c "Telescope grep_string cwd=/home/max/shared/Workspace/Notes/md"
 
 # launch dunst and keybinding
 exec --no-startup-id dunst

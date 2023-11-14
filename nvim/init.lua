@@ -5,10 +5,10 @@ vim.g.python3_host_prog = '/usr/bin/python3'
 -- export note on savebuffer
 vim.api.nvim_create_autocmd( { "BufWritePost" }, {
   pattern = { "*-note.md" },
-  command = [[ !/home/max/shared/Notes/buildnote %:p ]],
+  command = [[ !/home/max/notes/buildnote %:p ]],
  })
 
--- mapleader key
+-- set mapleader key
 vim.g.mapleader = ' '
 
 -- change links from '/link' to '.link'
@@ -21,10 +21,13 @@ vim.cmd("set path+=/home/max/shared/**")
 vim.opt.clipboard:append { "unnamedplus" }
 
 -- forget arrow keys
---vim.keymap.set('!', '<Up>', '<Nop>')
---vim.keymap.set('!', '<Down>', '<Nop>')
---vim.keymap.set('!', '<Left>', '<Nop>')
---vim.keymap.set('!', '<Right>', '<Nop>')
+vim.keymap.set('!', '<Up>', '<Nop>')
+vim.keymap.set('!', '<Down>', '<Nop>')
+vim.keymap.set('!', '<Left>', '<Nop>')
+vim.keymap.set('!', '<Right>', '<Nop>')
+
+-- keymap for personal wiki index
+vim.keymap.set('n', '<leader>ww', '<cmd>edit /home/max/shared/Wiki/index.md<cr>')
 
 -- set noswapfile
 vim.opt.swapfile = false
@@ -71,7 +74,7 @@ require("lazy").setup("plugins")
 
 -- 'gruvbox'
 vim.o.background = "dark" -- or "light" for light mode
-vim.cmd([[colorscheme gruvbox]])
+vim.cmd("colorscheme gruvbox")
 
 -- ALE
 vim.g.ale_use_neovim_diagnostics_api = 1
@@ -125,4 +128,3 @@ cmp.setup {
     { name = 'path' },
   },
 }
-

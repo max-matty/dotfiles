@@ -1,0 +1,5 @@
+
+return {
+  'luukvbaal/nnn.nvim'
+}
+

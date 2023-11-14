@@ -1,7 +1,7 @@
 
 return {
   'nvim-orgmode/orgmode',
-  enabled = false,
+--  enabled = false,
 
 
   dependencies = {
@@ -23,8 +23,8 @@ return {
 
     -- Setup orgmode
     require('orgmode').setup({
-      org_agenda_files = '~/shared/org/**/*',
-      org_default_notes_file = '~/shared/org/refile.org',
+      org_agenda_files = '~/shared/Docs/**/*',
+      org_default_notes_file = '~/shared/Docs/refile.org',
     })
   end,
 }

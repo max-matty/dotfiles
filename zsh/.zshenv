@@ -22,3 +22,6 @@ export DOTFILES="$HOME/dotfiles"
 # fzf and ripgrep
 export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# nnn config
+export NNN_PLUG="m:boom;u:getplugs;i:imgview;p:mocq"
