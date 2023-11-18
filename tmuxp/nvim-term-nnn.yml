@@ -1,0 +1,20 @@
+
+
+# This file should be in "$XDG_CONFIG_HOME/tmuxp/"
+
+session_name: nvim-term-nnn
+start_directory: $HOME
+
+windows:
+  - window_name: nvim
+    layout: tiled
+    panes:
+      - nvim
+  - window_name: term
+    layout: tiled
+    panes:
+      - 
+  - window_name: nnn
+    layout: tiled
+    panes:
+      - nnn

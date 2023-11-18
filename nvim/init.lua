@@ -11,7 +11,8 @@ vim.opt.undodir = vim.fn.expand('$HOME/.config/nvim/undo') -- save undo-tree in 
 vim.opt.undolevels = 10000                                 -- save undo-tree in files
 vim.opt.undoreload = 10000                                 -- save undo-tree in files
 vim.opt.scrolloff = 5                                      -- scroll not more then 5 lines from bottom
-vim.cmd("set includeexpr=substitute(v:fname,'/','','')")   -- change links from '/link' to '.link'
+-- change links from '/link' to '.link'
+vim.cmd("set includeexpr=substitute(v:fname,'/','/home/max/shared/Workspace/Zettelkasten/','')")
 vim.cmd("set path+=/home/max/shared/**")                   -- add 'shared' directory to pah
 vim.opt.number = true                                      -- set line number
 vim.opt.conceallevel = 2                                   -- set conceallevel
@@ -22,6 +23,7 @@ vim.opt.softtabstop = 2                                    -- autoindent and tab
 vim.opt.shiftwidth = 2                                     -- autoindent and tab space
 vim.opt.history = 10000                                    -- set cmdline history
 vim.opt.termguicolors = true                               -- set term gui colors
+vim.opt.hlsearch = false                                   -- set off highligh search pattern
 
 
 ---------------------------------------------------
@@ -31,11 +33,35 @@ vim.keymap.set('!', '<Up>', '<Nop>')                       -- forget arrow keys
 vim.keymap.set('!', '<Down>', '<Nop>')                     -- forget arrow keys
 vim.keymap.set('!', '<Left>', '<Nop>')                     -- forget arrow keys
 vim.keymap.set('!', '<Right>', '<Nop>')                    -- forget arrow keys
+-- keymap open previous buffer
+vim.keymap.set('n', '<BS>', '<cmd>bprevious<cr>')          -- BackSpace go to previous buffer
+-- go to previous and next link
+vim.keymap.set ('n', '<Tab>', '<Esc>/](<cr>')              -- TAB go next markdown link
+vim.keymap.set ('n', '<S-Tab>', '<Esc>?](<cr>')            -- Shit-TAB go previous markdown link
+-- go to link under cursor
+vim.keymap.set ('n', '<cr>', '<Esc>gf')                    -- follow link under cursor
 -- keymap for personal wiki index
-vim.keymap.set('n', '<leader>ww', '<cmd>edit /home/max/shared/wiki_index.md<cr>')
+--vim.keymap.set('n', '<leader>ww', "<cmd>edit /home/max/shared/Workspace/Notes/index.md<cr>")
 vim.keymap.set('n', '<leader>e', '<cmd>NnnExplorer<cr>')
 vim.keymap.set('n', '<leader>ee', '<cmd>NnnPicker<cr>')
-
+-- Launch panel if nothing is typed after <leader>z
+vim.keymap.set("n", "<leader>zz", "<cmd>Telekasten panel<CR>")
+-- Most used functions
+--vim.keymap.set("n", "<leader>zf", "<cmd>Telekasten find_notes<CR>")
+--vim.keymap.set("n", "<leader>zg", "<cmd>Telekasten search_notes<CR>")
+--vim.keymap.set("n", "<leader>zd", "<cmd>Telekasten goto_today<CR>")
+--vim.keymap.set("n", "<leader>zF", "<cmd>Telekasten follow_link<CR>")
+--vim.keymap.set("n", "<leader>zn", "<cmd>Telekasten new_note<CR>")
+--vim.keymap.set("n", "<leader>zc", "<cmd>Telekasten show_calendar<CR>")
+--vim.keymap.set("n", "<leader>zb", "<cmd>Telekasten show_backlinks<CR>")
+--vim.keymap.set("n", "<leader>zT", "<cmd>Telekasten show_tags<CR>")
+--vim.keymap.set("n", "<leader>zB", "<cmd>Telekasten show_backlinks<CR>")
+--vim.keymap.set("n", "<leader>zI", "<cmd>Telekasten insert_img_link<CR>")
+--vim.keymap.set("n", "<leader>zt", "<cmd>Telekasten new_templated_note<CR>")
+--vim.keymap.set("n", "<leader>zb", "<cmd>Telekasten browse_media<CR>")
+--vim.keymap.set("n", "<leader>zp", "<cmd>Telekasten preview_img<CR>")
+-- Call insert link automatically when we start typing a link
+--vim.keymap.set("i", "[[", "<cmd>Telekasten insert_link<CR>")
 
 ---------------------------------------------------
 -- export note on savebuffer
@@ -67,52 +93,6 @@ require("lazy").setup("plugins")
 ---------------------------------------------------
 -- plugin configurations
 ---------------------------------------------------
-
-
--- 'devicons'
----------------------------------------------------
-require'nvim-web-devicons'.setup {
- -- your personnal icons can go here (to override)
- -- you can specify color or cterm_color instead of specifying both of them
- -- DevIcon will be appended to `name`
- override = {
-  zsh = {
-    icon = "",
-    color = "#428850",
-    cterm_color = "65",
-    name = "Zsh"
-  }
- };
- -- globally enable different highlight colors per icon (default to true)
- -- if set to false all icons will have the default icon's color
- color_icons = true;
- -- globally enable default icons (default to false)
- -- will get overriden by `get_icons` option
- default = true;
- -- globally enable "strict" selection of icons - icon will be looked up in
- -- different tables, first by filename, and if not found by extension; this
- -- prevents cases when file doesn't have any extension but still gets some icon
- -- because its name happened to match some extension (default to false)
- strict = true;
- -- same as `override` but specifically for overrides by filename
- -- takes effect when `strict` is true
- override_by_filename = {
-  [".gitignore"] = {
-    icon = "",
-    color = "#f1502f",
-    name = "Gitignore"
-  }
- };
- -- same as `override` but specifically for overrides by extension
- -- takes effect when `strict` is true
- override_by_extension = {
-  ["log"] = {
-    icon = "",
-    color = "#81e043",
-    name = "Log"
-  }
- };
-}
 
 
 -- 'gruvbox'
@@ -147,6 +127,9 @@ local lspconfig = require('lspconfig')
 
 -- Enable lua language server
 require'lspconfig'.lua_ls.setup {}
+
+-- Enable lua language server
+--require'lspconfig'.zk.setup {}
 
 -- luasnip setup
 local luasnip = require 'luasnip'
@@ -185,8 +168,9 @@ cmp.setup {
     end, { 'i', 's' }),
   }),
   sources = {
-    { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'mkdnflow' },
+    { name = 'nvim_lsp' },
     { name = 'buffer' },
     { name = 'path' },
     { name = 'orgmode' },

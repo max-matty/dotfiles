@@ -1,7 +1,7 @@
 
 return {
   'nvim-orgmode/orgmode',
---  enabled = false,
+  enabled = false,
 
 
   dependencies = {

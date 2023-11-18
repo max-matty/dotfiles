@@ -1,5 +1,11 @@
 fpath=($ZDOTDIR/external $fpath)
 
+export EDITOR=nvim
+export NOTES=/home/max/shared/Workspace/Zettelkasten
+export SRC_FOLDER=/home/max/shared/Workspace/Zettelkasten
+export ZK_NOTEBOOK_DIR=/home/max/shared/Workspace/Zk
+export PATH=$PATH:/home/max/shared/Workspace/Bin
+  
 source "$XDG_CONFIG_HOME/zsh/aliases"
 
 zmodload zsh/complist
