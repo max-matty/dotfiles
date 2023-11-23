@@ -8,7 +8,6 @@ return {
   dependencies = { 'nvim-lua/plenary.nvim' },
 
   config = function()
-    require('telescope').extensions.media_files()
     require('telescope').setup({
       extensions = {
         filetypes = { "png", "jpg", "jpeg" },
