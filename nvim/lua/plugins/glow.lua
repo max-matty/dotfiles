@@ -1,6 +1,4 @@
 
--- glow
-
 return {
 
 	'ellisonleao/glow.nvim',

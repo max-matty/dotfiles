@@ -1,6 +1,4 @@
 
--- table-mode
-
 return {
 
 	'dhruvasagar/vim-table-mode',

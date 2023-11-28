@@ -1,13 +1,14 @@
 
 return {
+
   'nvim-orgmode/orgmode',
   enabled = false,
-
 
   dependencies = {
     { 'nvim-treesitter/nvim-treesitter', lazy = true },
   },
   event = 'VeryLazy',
+
   config = function()
     -- Load treesitter grammar for org
     require('orgmode').setup_ts_grammar()
@@ -27,4 +28,5 @@ return {
       org_default_notes_file = '~/shared/Docs/refile.org',
     })
   end,
+
 }

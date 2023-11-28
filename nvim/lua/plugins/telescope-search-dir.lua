@@ -1,6 +1,4 @@
 
--- 'telescope-search-sir-picker.nvim'
-
 return {
 
   'smilovanovic/telescope-search-dir-picker.nvim',
@@ -10,8 +8,5 @@ return {
     require('telescope').load_extension('search_dir_picker')
   end,
 
-  --	opts = {
-  --
-  --	}
-
 }
+

@@ -2,6 +2,9 @@
 ---------------------------------------------------
 -- setting keymapping
 ---------------------------------------------------
+vim.keymap.set('n', '<leader>th', ':set hlsearch!<cr>')    -- toggle hlsearch
+-- to using only for insert .md links
+vim.keymap.set('i', '<Esc><Esc>', '<Esc>i.md<Esc>', { noremap = true })
 vim.keymap.set('!', '<Up>', '<Nop>')                       -- forget arrow keys
 vim.keymap.set('!', '<Down>', '<Nop>')                     -- forget arrow keys
 vim.keymap.set('!', '<Left>', '<Nop>')                     -- forget arrow keys

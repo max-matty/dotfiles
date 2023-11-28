@@ -13,6 +13,7 @@ vim.opt.undoreload = 10000                                 -- save undo-tree in 
 vim.opt.scrolloff = 5                                      -- scroll not more then 5 lines from bottom
 -- change links from '/link' to '.link'
 vim.cmd("set includeexpr=substitute(v:fname,'/','/home/max/shared/Workspace/Zk/','')")
+vim.opt.suffixesadd = '.md'                                -- try adding extension to links
 vim.cmd("set path+=/home/max/shared/**")                   -- add 'shared' directory to pah
 vim.opt.number = true                                      -- set line number
 vim.opt.conceallevel = 0                                   -- set conceallevel
@@ -23,5 +24,8 @@ vim.opt.softtabstop = 2                                    -- autoindent and tab
 vim.opt.shiftwidth = 2                                     -- autoindent and tab space
 vim.opt.history = 10000                                    -- set cmdline history
 vim.opt.termguicolors = true                               -- set term gui colors
-vim.opt.hlsearch = false                                   -- set off highligh search pattern
+--vim.opt.hlsearch = false                                   -- set off highligh search pattern
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.incsearch = true
 

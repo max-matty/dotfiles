@@ -1,5 +1,11 @@
 
 return {
-  'luukvbaal/nnn.nvim'
+
+  'luukvbaal/nnn.nvim',
+
+  config = function ()
+    require("nnn").setup()
+  end
+
 }
 

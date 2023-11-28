@@ -1,9 +1,9 @@
 
--- 'mkdn-flow'
-
 return {
+
   'jakewvincent/mkdnflow.nvim',
-    enabled = false,
+  enabled = false,
+
   config = function()
     require('mkdnflow').setup({
       mappings = {
@@ -22,4 +22,5 @@ return {
       },
     })
   end
+
 }

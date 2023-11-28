@@ -1,7 +1,4 @@
 
-
--- modeline
-
 return {
 
 	'nvim-lualine/lualine.nvim',
