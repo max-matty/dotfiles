@@ -56,6 +56,19 @@ cp -rf "$DOTFILES/fonts" "$XDG_DATA_HOME"
 mkdir -p "$XDG_CONFIG_HOME/dunst"
 ln -sf "$DOTFILES/dunst/dunstrc" "$XDG_CONFIG_HOME/dunst/dunstrc"
 
+#########
+# picom #
+#########
+
+mkdir -p "$XDG_CONFIG_HOME/picom"
+ln -sf "$DOTFILES/picom/picom.conf" "$XDG_CONFIG_HOME/picom/picom.conf"
+
+#######
+# mld #
+#######
+
+ln -sf "$DOTFILES/mdl/.mdlrc" "$HOME/" 
+
 ########
 # tmux #
 ########

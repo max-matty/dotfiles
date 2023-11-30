@@ -2,6 +2,12 @@
 # delete this file and re-run i3-config-wizard(1).  
 # Complete reference at https://i3wm.org/docs/userguide.html
 
+# Autostart picom when starting the i3 window manager
+exec --no-startup-id picom -b
+
+# Autostart nitrogen when starting the i3 window manager
+exec --no-startup-id nitrogen --restore
+
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font

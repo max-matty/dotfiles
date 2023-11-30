@@ -3,6 +3,9 @@ return {
 
   'neovim/nvim-lspconfig',
   --  enabled = false,
+  dependencies = {
+    'hrsh7th/cmp-nvim-lsp',
+  },
 
   config = function ()
 
@@ -16,7 +19,16 @@ return {
 
     -- Enable lua server
     lspconfig.lua_ls.setup {
-      capabilities = capabilities, }
+      capabilities = capabilities,
+      settings = {
+        Lua = {
+          diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = {'vim'},
+          },
+        },
+      },
+    }
 
     -- Enable zk server
     lspconfig.zk.setup {

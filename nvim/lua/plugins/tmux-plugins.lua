@@ -2,7 +2,7 @@
 return {
 
 	'wellle/tmux-complete.vim',
---  enabled = false,
+	'christoomey/vim-tmux-navigator',
 
 }
 
