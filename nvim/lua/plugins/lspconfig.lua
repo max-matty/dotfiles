@@ -43,6 +43,11 @@ return {
 			},
 		})
 
+		-- -- marksman
+		-- lspconfig.marksman.setup({
+		-- 	capabilities = capabilities,
+		-- })
+
 		-- zk
 		lspconfig.zk.setup({
 			capabilities = capabilities,
