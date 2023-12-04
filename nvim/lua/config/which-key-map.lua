@@ -1,0 +1,76 @@
+local wk = require("which-key")
+
+wk.register({
+	a = {
+		name = "Lspsaga diagnostics",
+		-- a = { ":Lspsaga code_action<cr>", " ... code action" },
+		d = { ":Lspsaga peek_definition<cr>", " ... peek definition" },
+		D = { ":Lspsaga goto_definition<cr>", " ... goto definition" },
+		f = { ":Lspsaga finder<cr>", " ... finder" },
+		K = { ":Lspsaga hover_doc<cr>", " ... show documentation" },
+		-- l = { ":Lspsaga show_line_diagnostics", " ... line diagnostics" },
+		-- L = { ":Lspsaga show_cursor_diagnostics", " ... cursor diagnostics" },
+		-- n = { ":Lspsaga diagnostic_jump_next<cr>", " ... jump next" },
+		-- p = { ":Lspsaga diagnostic_jump_prev<cr>", " ... jump previous" },
+		r = { ":Lspsaga rename<cr>", " ... rename" },
+		t = { ":TroubleToggle<cr>", " ... trouble toggle" },
+	},
+	b = {
+		name = "Buffer Navigation",
+		b = { ":edit #<cr>", "Switch other buffer" },
+		d = { ":bdelete<cr>", "Delete buffer" },
+		n = { ":bnext<cr>", "Next buffer" },
+		p = { ":bprevious<cr>", "Previous buffer" },
+	},
+	e = {
+		name = "Explore files...",
+		e = { ":NvimTreeToggle<cr>", "NvimTree Toggle" },
+		f = { ":NvimTreeFocus<cr>", "NvimTree Focus" },
+		m = { ":NnnExplorer<cr>", "Nnn Explorer" },
+		n = { ":NnnPicker<cr>", "Nnn Picker" },
+	},
+	f = {
+		name = "Telescope search...",
+		b = { ":Telescope buffers<cr>", "...open buffers" },
+		c = { ":Telescope current_buffer_fuzzy_find<cr>", "...strings in current buffer" },
+		f = { ":Telescope search_dir_picker<cr>", "...strings and files in pre-selected dir" },
+		g = { ":Telescope live_grep<cr>", "...strings and files in directory recursively" },
+		h = { ":Telescope help_tags<cr>", "...help tags" },
+		i = { ":Telescope media_files<cr>", "Telescope media files" },
+		k = { ":Telescope keymaps<cr>", "Telescope keymaps" },
+		r = { ":Telescope oldfiles<cr>", "...recent files" },
+		s = { ":Telescope find_files<cr>", "...files in directory recursively" },
+		t = { ":Telescope file_browser path=%:p:h select_buffer=true<cr>", "...files browsing directory trees" },
+		u = { ":Telescope undo<cr>", "Telescope undo" },
+	},
+	h = { ":set hlsearch!<cr>", "Toggle hlsearch" },
+	m = {
+		name = "Markdown Sub Menu", -- optional group name
+		g = { "<cmd>Glow<cr>", "Glow Rendering" },
+		h = { ":vimgrep /^# / %<cr> | <cmd>copen<cr>", "h1 header" },
+		j = { ":vimgrep /^# \\|^## / %<cr> | <cmd>copen<cr>", "h1|h2 header" },
+		k = { ":vimgrep /^# \\|^## \\|^### / %<cr> | <cmd>copen<cr>", "h1|h2|h3 header" },
+		p = { "<cmd>MarkdownPreviewToggle<cr>", "Markdown Toggle Preview" },
+	},
+	s = {
+		name = "Split window",
+		v = { ":vsplit<cr>", "Vertically" },
+		h = { ":split<cr>", "Horizontallya" },
+	},
+	t = {
+		name = "Table Mode", -- optional group name
+		m = { ":TableModeToggle<cr>", "Toggle" },
+		s = {
+			name = "Sorting column",
+			i = { ":TableSort<cr>", " ... incremental" },
+			r = { ":TableSort!<cr>", " ... reverse" },
+		},
+		t = {
+			name = "Tableize with",
+			a = { ":Tableize/;<cr>", " ... ';'" },
+			b = { ":Tableize/:<cr>", " ... ':'" },
+			c = { ":Tableize/,<cr>", " ... ','" },
+			d = { ":Tableize/ <cr>", " ... ' '" },
+		},
+	},
+}, { prefix = "<leader>" })

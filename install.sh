@@ -8,13 +8,18 @@ XSG_DATA_HOME="$HOME/.config/local/share"
 # nvim #
 ########
 
-mkdir -p "$XDG_CONFIG_HOME/nvim"
-mkdir -p "$XDG_CONFIG_HOME/nvim/undo"
+rm -rf "$XDG_CONFIG_HOME/nvim"
+ln -s "$DOTFILES/nvim" "$XDG_CONFIG_HOME"
 
-ln -sf "$DOTFILES/nvim/init.lua" "$XDG_CONFIG_HOME/nvim"
+# nvim related stuffs 
+####################
 
-rm -rf "$XDG_CONFIG_HOME/nvim/lua"
-ln -s "$DOTFILES/nvim/lua" "$XDG_CONFIG_HOME/nvim/"
+rm -rf "$XDG_CONFIG_HOME/mdl"
+ln -s "$DOTFILES/nvim-stuffs/mdl" "$XDG_CONFIG_HOME"
+ln -sf "$XDG_CONFIG_HOME/mdl/.mdlrc" "$HOME/" 
+ln -sf "$DOTFILES/nvim-stuffs/.editorconfig" "$HOME/" 
+ln -sf "$DOTFILES/nvim-stuffs/.luacheckrc" "$HOME/" 
+ln -sf "$DOTFILES/nvim-stuffs/.markdownlintrc" "$HOME/" 
 
 #######
 # X11 #
@@ -62,12 +67,6 @@ ln -sf "$DOTFILES/dunst/dunstrc" "$XDG_CONFIG_HOME/dunst/dunstrc"
 
 mkdir -p "$XDG_CONFIG_HOME/picom"
 ln -sf "$DOTFILES/picom/picom.conf" "$XDG_CONFIG_HOME/picom/picom.conf"
-
-#######
-# mld #
-#######
-
-ln -sf "$DOTFILES/mdl/.mdlrc" "$HOME/" 
 
 ########
 # tmux #

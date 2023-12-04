@@ -1,7 +1,3 @@
-
 return {
-
-	'dhruvasagar/vim-table-mode',
---  enabled = false,
-
+	"dhruvasagar/vim-table-mode",
 }
