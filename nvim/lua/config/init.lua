@@ -18,7 +18,7 @@ require("config.keymaps")
 local opts = {
 
 	install = {
-		colorscheme = { "terafox" },
+		colorscheme = { "duskfox" },
 	},
 
 	rtp = {

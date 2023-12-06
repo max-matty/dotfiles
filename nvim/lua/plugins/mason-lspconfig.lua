@@ -6,9 +6,10 @@ return {
 	config = function()
 		require("mason-lspconfig").setup({
 			ensure_installed = {
+				"bashls",
 				"efm",
 				"lua_ls",
-				"marksman",
+				"zk",
 			},
 			automatic_installation = true,
 		})

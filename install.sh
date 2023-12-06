@@ -2,7 +2,7 @@
 
 XDG_CONFIG_HOME="$HOME/.config"
 DOTFILES="$HOME/dotfiles"
-XSG_DATA_HOME="$HOME/.config/local/share"
+XDG_DATA_HOME="$HOME/.config/local/share"
 
 ########
 # nvim #
@@ -11,15 +11,16 @@ XSG_DATA_HOME="$HOME/.config/local/share"
 rm -rf "$XDG_CONFIG_HOME/nvim"
 ln -s "$DOTFILES/nvim" "$XDG_CONFIG_HOME"
 
-# nvim related stuffs 
+# nvim related stuffs
 ####################
 
 rm -rf "$XDG_CONFIG_HOME/mdl"
 ln -s "$DOTFILES/nvim-stuffs/mdl" "$XDG_CONFIG_HOME"
-ln -sf "$XDG_CONFIG_HOME/mdl/.mdlrc" "$HOME/" 
-ln -sf "$DOTFILES/nvim-stuffs/.editorconfig" "$HOME/" 
-ln -sf "$DOTFILES/nvim-stuffs/.luacheckrc" "$HOME/" 
-ln -sf "$DOTFILES/nvim-stuffs/.markdownlintrc" "$HOME/" 
+ln -sf "$XDG_CONFIG_HOME/mdl/.mdlrc" "$HOME/"
+ln -sf "$DOTFILES/nvim-stuffs/.editorconfig" "$HOME/"
+ln -sf "$DOTFILES/nvim-stuffs/.luacheckrc" "$HOME/"
+ln -sf "$DOTFILES/nvim-stuffs/.markdownlintrc" "$HOME/"
+ln -sf "$DOTFILES/nvim-stuffs/.shellcheckrc" "$HOME/"
 
 #######
 # X11 #
@@ -27,7 +28,7 @@ ln -sf "$DOTFILES/nvim-stuffs/.markdownlintrc" "$HOME/"
 
 rm -rf "$XDG_CONFIG_HOME/X11"
 ln -s "$DOTFILES/X11" "$XDG_CONFIG_HOME"
-ln -sf "$DOTFILES/X11/.xinitrc" "$HOME/" 
+ln -sf "$DOTFILES/X11/.xinitrc" "$HOME/"
 
 ######
 # i3 #
@@ -78,6 +79,6 @@ ln -sf "$DOTFILES/tmux/tmux.conf" "$XDG_CONFIG_HOME/tmux/tmux.conf"
 rm -rf "$XDG_CONFIG_HOME/tmuxp"
 ln -s "$DOTFILES/tmuxp" "$XDG_CONFIG_HOME"
 
-[ ! -d "$XDG_CONFIG_HOME/tmux/plugins" ] \
-&& git clone https://github.com/tmux-plugins/tpm \
-"$XDG_CONFIG_HOME/tmux/plugins/tpm"
+[ ! -d "$XDG_CONFIG_HOME/tmux/plugins" ] &&
+	git clone https://github.com/tmux-plugins/tpm \
+		"$XDG_CONFIG_HOME/tmux/plugins/tpm"

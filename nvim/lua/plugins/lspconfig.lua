@@ -43,10 +43,10 @@ return {
 			},
 		})
 
-		-- -- marksman
-		-- lspconfig.marksman.setup({
-		-- 	capabilities = capabilities,
-		-- })
+		-- bash
+		lspconfig.bashls.setup({
+			capabilities = capabilities,
+		})
 
 		-- zk
 		lspconfig.zk.setup({
@@ -57,12 +57,15 @@ return {
 		local stylua = require("efmls-configs.formatters.stylua")
 		-- local markdownlint = require("efmls-configs.linters.markdownlint")
 		local prettier_d = require("efmls-configs.formatters.prettier_d")
+		local shellcheck = require("efmls-configs.linters.shellcheck")
+		local shfmt = require("efmls-configs.formatters.shfmt")
 
 		-- configure efm server
 		lspconfig.efm.setup({
 			filetypes = {
 				"lua",
 				"markdown",
+				"sh",
 			},
 			init_options = {
 				documentFormatting = true,
@@ -76,6 +79,7 @@ return {
 				languages = {
 					lua = { luacheck, stylua },
 					markdown = { prettier_d },
+					sh = { shellcheck, shfmt },
 				},
 			},
 		})

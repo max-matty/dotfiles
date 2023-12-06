@@ -37,6 +37,7 @@ wk.register({
 		g = { ":Telescope live_grep<cr>", "...strings and files in directory recursively" },
 		h = { ":Telescope help_tags<cr>", "...help tags" },
 		i = { ":Telescope media_files<cr>", "Telescope media files" },
+		l = { ":lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>", "Telescope live grep" },
 		k = { ":Telescope keymaps<cr>", "Telescope keymaps" },
 		r = { ":Telescope oldfiles<cr>", "...recent files" },
 		s = { ":Telescope find_files<cr>", "...files in directory recursively" },

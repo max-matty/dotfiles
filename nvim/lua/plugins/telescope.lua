@@ -8,6 +8,7 @@ return {
 		"nvim-telescope/telescope-media-files.nvim",
 		"smilovanovic/telescope-search-dir-picker.nvim",
 		"debugloop/telescope-undo.nvim",
+		"nvim-telescope/telescope-live-grep-args.nvim",
 	},
 
 	config = function()
@@ -42,5 +43,6 @@ return {
 		require("telescope").load_extension("media_files")
 		require("telescope").load_extension("search_dir_picker")
 		require("telescope").load_extension("undo")
+		require("telescope").load_extension("live_grep_args")
 	end,
 }
