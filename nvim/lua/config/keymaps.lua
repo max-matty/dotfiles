@@ -20,7 +20,17 @@ vim.api.nvim_set_keymap("n", "<C-_>", "gcc", { noremap = false })
 vim.api.nvim_set_keymap("v", "<C-_>", "gc", { noremap = false })
 
 -- zk related keymaps
-vim.keymap.set("n", "<BS>", "<cmd>edit #<cr>") -- previous buffer
-vim.keymap.set("n", "<Tab>", "<Esc>/](<cr>") -- next link in buffer
-vim.keymap.set("n", "<S-Tab>", "<Esc>?](<cr>") -- previous link in buffer
-vim.keymap.set("i", "<Esc><Esc>", "<Esc>i.md<Esc>", { noremap = true }) -- add .md at point
+vim.keymap.set("n", "<BS>", ":edit #<cr>", opts) -- previous buffer
+vim.keymap.set("n", "<Tab>", "<Esc>/](<cr>", opts) -- next link in buffer
+vim.keymap.set("n", "<S-Tab>", "<Esc>?](<cr>", opts) -- previous link in buffer
+vim.keymap.set("i", "<Esc><Esc>", "<Esc>i.md<Esc>", opts) -- add .md at point
+
+-- spell check
+vim.keymap.set("n", "<F4>", ":setlocal spell! spelllang=en_us<cr>", opts)
+vim.keymap.set("n", "<F5>", ":setlocal spell! spelllang=it<cr>", opts)
+vim.keymap.set("n", "sp", "[s", opts) -- previous misspelling
+vim.keymap.set("n", "sn", "]s", opts) -- next misspelling
+vim.keymap.set("n", "ss", "1z=", opts) -- show suggestions
+vim.keymap.set("n", "sa", "zg", opts) -- add good word
+vim.keymap.set("i", "<F4>", "<C-o>:setlocal spell! spelllang=en_us<cr>", opts)
+vim.keymap.set("i", "<F5>", "<C-o>:setlocal spell! spelllang=it<cr>", opts)

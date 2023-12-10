@@ -48,6 +48,11 @@ return {
 			capabilities = capabilities,
 		})
 
+		-- -- marksman
+		-- lspconfig.marksman.setup({
+		-- 	capabilities = capabilities,
+		-- })
+
 		-- zk
 		lspconfig.zk.setup({
 			capabilities = capabilities,
@@ -55,7 +60,7 @@ return {
 
 		local luacheck = require("efmls-configs.linters.luacheck")
 		local stylua = require("efmls-configs.formatters.stylua")
-		-- local markdownlint = require("efmls-configs.linters.markdownlint")
+		local markdownlint = require("efmls-configs.linters.markdownlint")
 		local prettier_d = require("efmls-configs.formatters.prettier_d")
 		local shellcheck = require("efmls-configs.linters.shellcheck")
 		local shfmt = require("efmls-configs.formatters.shfmt")
@@ -78,7 +83,7 @@ return {
 			settings = {
 				languages = {
 					lua = { luacheck, stylua },
-					markdown = { prettier_d },
+					markdown = { markdownlint, prettier_d },
 					sh = { shellcheck, shfmt },
 				},
 			},

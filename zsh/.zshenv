@@ -1,3 +1,6 @@
+# path for execution commands
+export PATH=$PATH:/home/max/shared/Workspace/Bin
+
 # For dotfiles
 export XDG_CONFIG_HOME="$HOME/.config"
 # For user specific data

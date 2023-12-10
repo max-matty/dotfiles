@@ -54,13 +54,16 @@ wk.register({
 		p = { "<cmd>MarkdownPreviewToggle<cr>", "Markdown Toggle Preview" },
 	},
 	s = {
-		name = "Split window",
-		v = { ":vsplit<cr>", "Vertically" },
-		h = { ":split<cr>", "Horizontallya" },
+		name = "Spell check",
+		a = { ":spellr<cr>", "Repeat fixing in buffer" },
+		n = { "]s", "Next misspelling" },
+		p = { "[s", "Previous misspelling" },
+		s = { "z=", "Show suggestions" },
 	},
 	t = {
 		name = "Table Mode", -- optional group name
 		m = { ":TableModeToggle<cr>", "Toggle" },
+		r = { ":TableModeRealign<cr>", "Realign" },
 		s = {
 			name = "Sorting column",
 			i = { ":TableSort<cr>", " ... incremental" },

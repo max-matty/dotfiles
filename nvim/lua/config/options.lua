@@ -48,3 +48,8 @@ opt.guicursor =
 opt.encoding = "UTF-8"
 opt.showmode = false
 opt.history = 10000 -- set cmdline history
+
+-- spellcheck
+vim.opt.spelllang = { "en_us", "it" }
+vim.opt.spell = false
+vim.opt.spellsuggest = { "fast", "5" }

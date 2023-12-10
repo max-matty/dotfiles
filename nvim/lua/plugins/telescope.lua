@@ -42,7 +42,25 @@ return {
 		require("telescope").load_extension("file_browser")
 		require("telescope").load_extension("media_files")
 		require("telescope").load_extension("search_dir_picker")
-		require("telescope").load_extension("undo")
 		require("telescope").load_extension("live_grep_args")
+		require("telescope").load_extension("undo")
+		require("telescope").setup({
+			extensions = {
+				undo = {
+					mappings = {
+						i = {
+							["<C-Y>"] = require("telescope-undo.actions").yank_additions,
+							["<C-y>"] = require("telescope-undo.actions").yank_deletions,
+							["<C-r>"] = require("telescope-undo.actions").restore,
+						},
+						n = {
+							["Y"] = require("telescope-undo.actions").yank_additions,
+							["y"] = require("telescope-undo.actions").yank_deletions,
+							["r"] = require("telescope-undo.actions").restore,
+						},
+					},
+				},
+			},
+		})
 	end,
 }
