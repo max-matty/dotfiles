@@ -25,6 +25,8 @@ return {
 				"lua",
 				"gitignore",
 				"python",
+				"gitcommit",
+				"gitignore",
 			},
 			auto_install = true,
 			highlight = {
