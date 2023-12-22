@@ -1,7 +1,7 @@
 fpath=($ZDOTDIR/external $fpath)
 
 export EDITOR=nvim
-  
+
 source "$XDG_CONFIG_HOME/zsh/aliases"
 
 zmodload zsh/complist
@@ -14,7 +14,13 @@ autoload -Uz compinit; compinit
 _comp_options+=(globdots) # With hidden files
 source ~/dotfiles/zsh/external/completion.zsh
 
-autoload -Uz prompt_purification_setup; prompt_purification_setup
+source "$XDG_CONFIG_HOME/zsh/external/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$XDG_CONFIG_HOME/zsh/external/zsh-history-substring-search/zsh-history-substring-search.zsh"
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+#autoload -Uz prompt_purification_setup; prompt_purification_setup
+autoload -Uz cursor_mode && cursor_mode
 
 # Push the current directory visited on to the stack.
 setopt AUTO_PUSHD
@@ -25,8 +31,6 @@ setopt PUSHD_SILENT
 
 bindkey -v
 export KEYTIMEOUT=1
-
-autoload -Uz cursor_mode && cursor_mode
 
 autoload -Uz edit-command-line
 zle -N edit-command-line
@@ -63,3 +67,5 @@ scratchpad () {
 # gem executable
 export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
 export PATH="$PATH:$GEM_HOME/bin"
+
+eval "$(starship init zsh)"

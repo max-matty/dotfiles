@@ -13,12 +13,13 @@ vim.opt.rtp:prepend(lazypath)
 
 require("config.globals")
 require("config.options")
+require("config.functions")
 require("config.keymaps")
 
 local opts = {
 
 	install = {
-		colorscheme = { "duskfox" },
+		colorscheme = { "carbonfox" },
 	},
 
 	rtp = {

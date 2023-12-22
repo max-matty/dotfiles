@@ -1,9 +1,12 @@
-alias ll='ls -lh'
-alias lla='ls -lah'
+# alias ll='ls -lh --color'
+# alias lla='ls -lah --color'
+alias ls='lsd'
+alias ll='lsd --group-directories-first -lh'
+alias lla='lsd --group-directories-first -lah'
 alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
-
+alias cat='bat'
 alias d='dirs -v'
 for index ({1..9}) alias "$index"="cd +${index}"; unset index
 

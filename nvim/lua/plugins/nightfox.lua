@@ -4,6 +4,6 @@ return {
 	priority = 999,
 
 	config = function()
-		vim.cmd("colorscheme duskfox")
+		vim.cmd("colorscheme carbonfox")
 	end,
 }
