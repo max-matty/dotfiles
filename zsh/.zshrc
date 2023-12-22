@@ -1,4 +1,5 @@
 fpath=($ZDOTDIR/external $fpath)
+fpath=($ZDOTDIR/completion $fpath)
 
 export EDITOR=nvim
 
