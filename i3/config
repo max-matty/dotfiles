@@ -37,6 +37,9 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # start a terminal
 bindsym $mod+Return exec urxvtc
 
+# start ranger file manager
+bindsym $mod+q exec urxvtc -e ranger
+
 # kill focused window
 bindsym $mod+Shift+q kill
 bindsym $mod+Ctrl+q exec tmux kill-server

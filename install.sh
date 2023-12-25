@@ -22,6 +22,13 @@ ln -sf "$DOTFILES/nvim-stuffs/.luacheckrc" "$HOME/"
 ln -sf "$DOTFILES/nvim-stuffs/.markdownlintrc" "$HOME/"
 ln -sf "$DOTFILES/nvim-stuffs/.shellcheckrc" "$HOME/"
 
+################
+# Other Stuffs #
+################
+
+ln -sf "$DOTFILES/other-stuffs/.nbrc" "$HOME/"
+ln -sf "$DOTFILES/other-stuffs/starship.toml" "$HOME/.config/"
+
 #######
 # X11 #
 #######

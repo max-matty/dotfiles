@@ -1,7 +1,8 @@
 fpath=($ZDOTDIR/external $fpath)
-fpath=($ZDOTDIR/completion $fpath)
 
 export EDITOR=nvim
+# export TERM="xterm-256color"
+export TERM="tmux-256color"
 
 source "$XDG_CONFIG_HOME/zsh/aliases"
 
