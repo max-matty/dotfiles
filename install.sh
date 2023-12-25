@@ -29,6 +29,13 @@ ln -sf "$DOTFILES/nvim-stuffs/.shellcheckrc" "$HOME/"
 ln -sf "$DOTFILES/other-stuffs/.nbrc" "$HOME/"
 ln -sf "$DOTFILES/other-stuffs/starship.toml" "$HOME/.config/"
 
+######
+# nb #
+######
+
+rm -rf "$HOME/.nb"
+ln -s "$HOME/shared/Workspace/Zk-nb/" "$HOME/.nb/"
+
 #######
 # X11 #
 #######
