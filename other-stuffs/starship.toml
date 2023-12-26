@@ -92,21 +92,25 @@ show_milliseconds = true
 format = "» [$duration]($style) "
 style = "white italic"
 
-[git_status]
-format = '([\[$all_status$ahead_behind\]]($style) )'
-conflicted = '=$count'
-stashed = '\$$count'
-deleted = '✘$count'
-renamed = '»$count'
-modified = '!$count'
-staged = '+$count'
-untracked = '?$count'
-
 [git_branch]
-symbol = ' '
+# symbol = ' '
+symbol = 'git '
 truncation_length = 4
 truncation_symbol = ''
 # ignore_branches = ['master', 'main']
+
+[git_status]
+# format = '([\[$all_status$ahead_behind\]]($style) )'
+format = '([\[$all_status$ahead_behind\]]($style) )'
+conflicted = '=$count'
+stashed = '\$$count'
+# deleted = '✘$count'
+deleted = 'd$count'
+# renamed = '»$count'
+renamed = 'r$count'
+modified = '!$count'
+staged = '+$count'
+untracked = '?$count'
 
 [time]
 disabled = false

@@ -34,7 +34,7 @@ ln -sf "$DOTFILES/other-stuffs/starship.toml" "$HOME/.config/"
 ######
 
 rm -rf "$HOME/.nb"
-ln -sf "$HOME/shared/Workspace/Zk-nb/" "$HOME/.nb/"
+ln -sf "$HOME/shared/Workspace/Zk-nb" "$HOME/.nb"
 
 #######
 # X11 #
