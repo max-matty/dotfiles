@@ -21,7 +21,7 @@ source "$XDG_CONFIG_HOME/zsh/external/zsh-history-substring-search/zsh-history-s
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
-# autoload -Uz prompt_purification_setup; prompt_purification_setup
+autoload -Uz prompt_purification_setup; prompt_purification_setup
 autoload -Uz cursor_mode && cursor_mode
 
 # Push the current directory visited on to the stack.
@@ -70,4 +70,4 @@ scratchpad () {
 export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
 export PATH="$PATH:$GEM_HOME/bin"
 
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
