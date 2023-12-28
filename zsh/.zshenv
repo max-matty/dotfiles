@@ -1,6 +1,9 @@
 # path for execution commands
 export PATH=$PATH:/home/max/shared/Workspace/Bin
 
+# shellcheck disable directives
+export SHELLCHECK_OPTS="-e SC2086,SC1091"
+
 # For dotfiles
 export XDG_CONFIG_HOME="$HOME/.config"
 # For user specific data

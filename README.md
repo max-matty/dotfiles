@@ -2,24 +2,39 @@
 
 ## Preparare la Macchina Virtuale con `virt-manager`
 
-**Caratteristiche della VM**
+### File 'iso' installazione
 
-> RAM 2048MB
-> Core 2
-> HD 20GM
+Arch Linux mensile, ad esempio:
 
-Flaggare la configurazione dell'hardwar prima dell'installazione.
+`archlinux-2023.12.01-x86_64.iso`
 
-**Cartella condivisa**
+### Caratteristiche della VM
 
-Nel componente _Memory_, flaggare _enable shared memory_.  
-Poi aggiungere hardware tipo _Filesystem_ e compilare come segue:
+> RAM 1024MB
+> Core 1
+> HD 10GM
+
+**NB** Flaggare la configurazione dell'hardwar prima dell'installazione.
+
+### Cartella condivisa
+
+Nel componente _Memory_, flaggare _enable shared memory_.
+
+Aggiungere hardware tipo _Filesystem_ e compilare come segue:
 
 > Driver: `virtiofs`  
 > Source path: `/home/max/shared`  
 > Target path: `/shared`
 
 Avviare l'installazione.
+
+## Avvio installazione da ISO
+
+```shell
+# loadkeys it
+# curl -LO https://raw.githubusercontent.com/max-matty/arch_installer/master/install_sys.sh
+# sh install_sys.sh
+```
 
 ## Primo avvio in caso di Macchina Virtuale
 
@@ -47,6 +62,10 @@ E' necessario verificare la presenza dei seguenti tramite `:Mason`:
 - `shfmt`
 - `stylua`
 - `zk`
+
+Potrà essere utile caricare il plugin che permette di installare automaticamente alcuni server _LSP_ tramite il seguente comando:
+
+`:Lazy load mason-lspconfig.nvim`
 
 ### Tmux
 

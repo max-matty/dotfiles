@@ -1,2 +1,0 @@
-# ~/.shellcheckrc
-disable=SC2016 # Expressions don't expand in single quotes, use double quotes for that

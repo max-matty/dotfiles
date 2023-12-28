@@ -2,7 +2,7 @@
 
 # This file should be in "$XDG_CONFIG_HOME/tmuxp/"
 
-session_name: term-nvim-htop
+session_name: term-nvim-top
 start_directory: $HOME
 
 windows:
@@ -14,7 +14,7 @@ windows:
     layout: tiled
     panes:
       - nvim
-  - window_name: htop
+  - window_name: top
     layout: tiled
     panes:
-      - htop
+      - top -e=m -u=max

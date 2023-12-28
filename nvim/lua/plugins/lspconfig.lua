@@ -84,6 +84,7 @@ return {
 				languages = {
 					lua = { luacheck, stylua },
 					markdown = { markdownlint, prettier_d },
+					-- sh = { shellcheck, shfmt },
 					sh = { shfmt },
 				},
 			},
