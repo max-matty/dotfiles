@@ -32,3 +32,15 @@ ftmuxp() {
 scratchpad() {
     "$DOTFILES/zsh/scratchpad.sh"
 }
+
+
+t() {
+	if tmux has-session -t default 2>/dev/null; then
+		tmux attach-session -d -t default
+	else
+		tmux new-session -d -s default
+		tmux new-window 'nvim ~/'
+		tmux new-window 'top'
+		tmux attach-session -t default:1
+	fi
+}

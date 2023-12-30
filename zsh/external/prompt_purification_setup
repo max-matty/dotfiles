@@ -127,7 +127,14 @@ prompt_purification_setup() {
 
     prompt_git_branch
     RPROMPT='$(prompt_git_info) $(git_prompt_status)'
-    PROMPT=$'%F{red}%n%F{white}@%F{red}%m%F{white}[%1~]%B%F{blue}>%f%b '
+    if [ ! -z "$TMUX" ];then
+      # WindN=$(tmux display-message -p "#I")
+      # TmuxYes="[T|$WindN"
+      TmuxYes="[T|"
+    else
+      TmuxYes="["
+    fi
+    PROMPT=$'%F{red}%m%F{white}${TmuxYes}%1~]%B%F{blue}>%f%b '
 }
 
 prompt_purification_setup

@@ -16,8 +16,10 @@ autoload -Uz compinit; compinit
 _comp_options+=(globdots) # With hidden files
 source ~/dotfiles/zsh/external/completion.zsh
 
-source "$XDG_CONFIG_HOME/zsh/external/zsh-autosuggestions/zsh-autosuggestions.zsh"
-source "$XDG_CONFIG_HOME/zsh/external/zsh-history-substring-search/zsh-history-substring-search.zsh"
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
@@ -53,14 +55,12 @@ fi
 
 source $DOTFILES/zsh/scripts.sh
 
-ftmuxp
+#ftmuxp
 
 # Clearing the shell is now done with CTRL+g
 bindkey -r '^l'
 bindkey -r '^g'
 bindkey -s '^g' 'clear\n'
-
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 scratchpad () {
   "$DOTFILES/zsh/scratchpad.sh"
@@ -69,5 +69,3 @@ scratchpad () {
 # gem executable
 export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
 export PATH="$PATH:$GEM_HOME/bin"
-
-# eval "$(starship init zsh)"
