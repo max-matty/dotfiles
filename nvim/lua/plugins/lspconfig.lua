@@ -48,10 +48,19 @@ return {
 			capabilities = capabilities,
 		})
 
-		-- -- marksman
-		-- lspconfig.marksman.setup({
-		-- 	capabilities = capabilities,
-		-- })
+		-- C/C++
+		lspconfig.clangd.setup({
+			capabilities = capabilities,
+			cmd = {
+				"clangd",
+				"--offset-encoding=utf-16",
+			},
+		})
+
+		-- marksman
+		lspconfig.marksman.setup({
+			capabilities = capabilities,
+		})
 
 		-- zk
 		lspconfig.zk.setup({
@@ -62,8 +71,10 @@ return {
 		local stylua = require("efmls-configs.formatters.stylua")
 		local markdownlint = require("efmls-configs.linters.markdownlint")
 		local prettier_d = require("efmls-configs.formatters.prettier_d")
-		-- local shellcheck = require("efmls-configs.linters.shellcheck")
+		local shellcheck = require("efmls-configs.linters.shellcheck")
 		local shfmt = require("efmls-configs.formatters.shfmt")
+		local cpplint = require("efmls-configs.linters.cpplint")
+		local clangformat = require("efmls-configs.formatters.clang_format")
 
 		-- configure efm server
 		lspconfig.efm.setup({
@@ -71,6 +82,8 @@ return {
 				"lua",
 				"markdown",
 				"sh",
+				"c",
+				"cpp",
 			},
 			init_options = {
 				documentFormatting = true,
@@ -84,8 +97,10 @@ return {
 				languages = {
 					lua = { luacheck, stylua },
 					markdown = { markdownlint, prettier_d },
-					-- sh = { shellcheck, shfmt },
-					sh = { shfmt },
+					sh = { shellcheck, shfmt },
+					-- sh = { shfmt },
+					c = { clangformat, cpplint },
+					cpp = { clangformat, cpplint },
 				},
 			},
 		})

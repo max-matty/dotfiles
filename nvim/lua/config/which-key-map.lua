@@ -25,7 +25,8 @@ wk.register({
 	e = {
 		name = "Explore files...",
 		e = { ":NvimTreeToggle<cr>", "NvimTree Toggle" },
-		f = { ":NvimTreeFocus<cr>", "NvimTree Focus" },
+		f = { ":NvimTreeFindFile<cr>", "NvimTree FindFile" },
+		-- f = { ":NvimTreeFocus<cr>", "NvimTree Focus" },
 		m = { ":NnnExplorer<cr>", "Nnn Explorer" },
 		n = { ":NnnPicker<cr>", "Nnn Picker" },
 	},
