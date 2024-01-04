@@ -1,13 +1,27 @@
+# alias for list files
 # alias ll='ls -lh --color'
 # alias lla='ls -lah --color'
 alias ls='lsd'
 alias ll='lsd --group-directories-first -lh'
 alias lla='lsd --group-directories-first -lah'
+
+# alias for git
 alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
+
+# alias for cat
 alias cat='bat'
+
+# alias for tmux
+alias tls='tmux ls'
+# alias t='tmux-default'
+
+# alias for neovim
+alias v='nvim ~/'
+
 alias d='dirs -v'
+
 for index ({1..9}) alias "$index"="cd +${index}"; unset index
 
 alias startVM-00='virsh -c qemu:///system start VM-00'
