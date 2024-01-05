@@ -18,25 +18,28 @@ return {
 				name = "Launch file",
 				type = "cppdbg",
 				request = "launch",
+				-- program = "Debug",
 				program = function()
 					return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
 				end,
 				cwd = "${workspaceFolder}",
 				stopAtEntry = true,
 			},
-			{
-				name = "Attach to gdbserver :1234",
-				type = "cppdbg",
-				request = "launch",
-				MIMode = "gdb",
-				miDebuggerServerAddress = "localhost:1234",
-				miDebuggerPath = "/usr/bin/gdb",
-				cwd = "${workspaceFolder}",
-				program = function()
-					return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-				end,
-			},
 		}
+
+		vim.api.nvim_set_hl(0, "blue", { fg = "#0000FF" })
+		vim.api.nvim_set_hl(0, "green", { fg = "#008000" })
+		vim.api.nvim_set_hl(0, "yellow", { fg = "#FFFF00" })
+		vim.api.nvim_set_hl(0, "red", { fg = "#FF0000" })
+
+		vim.fn.sign_define(
+			"DapBreakpoint",
+			{ text = "", texthl = "red", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
+		)
+		vim.fn.sign_define(
+			"DapStopped",
+			{ text = "", texthl = "green", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
+		)
 
 		local dapui = require("dapui")
 		dapui.setup()

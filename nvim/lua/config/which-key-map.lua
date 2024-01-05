@@ -22,6 +22,15 @@ wk.register({
 		n = { ":bnext<cr>", "Next buffer" },
 		p = { ":bprevious<cr>", "Previous buffer" },
 	},
+	d = {
+		name = "Debugging",
+		c = { ":DapStepOver<cr>", "Step Over" },
+		e = { ":DapTerminate<cr>", "Terminate debugging" },
+		i = { ":DapStepInto<cr>", "Step Into" },
+		n = { ":DapToggleBreakpoint<cr>", "Toggle Breakpoint" },
+		s = { ":DapContinue<cr>", "Start/Continue debugging" },
+		t = { ":lua require('dapui').toggle()<cr>", "Toggle debug-UI" },
+	},
 	e = {
 		name = "Explore files...",
 		e = { ":NvimTreeToggle<cr>", "NvimTree Toggle" },
