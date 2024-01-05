@@ -54,6 +54,7 @@ wk.register({
 		t = { ":Telescope file_browser path=%:p:h select_buffer=true<cr>", "...files browsing directory trees" },
 		u = { ":Telescope undo<cr>", "Telescope undo" },
 	},
+	g = { ":terminal lazygit<cr>", "Lazygit terminal" },
 	h = { ":set hlsearch!<cr>", "Toggle hlsearch" },
 	m = {
 		name = "Markdown Sub Menu", -- optional group name
