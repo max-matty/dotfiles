@@ -1,0 +1,126 @@
+format = """
+[┌─ ](bold black)\
+$os\
+$hostname\
+$username\
+$directory\
+$fill\
+$cmd_duration\
+$git_branch\
+$git_status\
+${custom.checkdir}
+[└─ ](bold black)\
+$character\
+"""
+
+# symbols for copy paste
+# arrows right []  arrow left     [󰍞]
+# cursor       [❯]  reverse cursor [❮[
+# linux os     []  documents      [󰈙]
+# documents    [󰈙] downloads      []
+# music        []  pictures       []
+# l.c          []  l.docker       []
+# l.elixir     []  l.elm          []
+# l.git.branch []  l.golang       []
+# l.haskell    []  l.java         []
+# l.julia      []  l.nodejs       []
+# l.nim        [󰆥]  l.rust         []
+# l.scala      []
+
+# Disable the blank line at the start of the prompt
+add_newline = true
+
+# do not show version for packages (python...)
+[package]
+disabled = true
+
+# .........................
+[fill]
+symbol = ' '
+
+# representdds the current operating system
+[os]
+disabled = true # Disabled by default
+style = "yellow"
+[os.symbols]
+Arch = " "
+
+[hostname]
+ssh_only = false
+format =  "[$hostname](bold red)"
+trim_at = "."
+disabled = false
+
+# username
+[username]
+show_always = true
+style_user = "fg:white"
+style_root = "fg:red"
+format = '\([$user]($style)\)'
+disabled = false
+
+[directory]
+format = '[$path]($style)'
+style = "blue"
+# home_symbol = '[󰋜 ~] '
+home_symbol = ''
+truncation_symbol = "../"
+truncation_length = 1
+# fish_style_pwd_dir_length = 1
+
+# [directory.substitutions]
+# "Books" = "()Books"
+# "Zk" = "(󰈙)Zk"
+# "Obsidian" = "(󰈙)Obsidian"
+# "730" = "(󰈙)730"
+# "Workspace" = "(󰈙)Workspace"
+# "Downloads" = "()Downloads"
+# "Music" = "()Music"
+# "Images" = "()Images"
+# "Video" = "()Video"
+
+[custom.checkdir]
+description = "check directory"
+command = "checkdir"
+format = '\[[$output]($style)\]'
+style = "cyan"
+when = "true"
+
+[cmd_duration]
+min_time = 500
+show_milliseconds = true
+format = "» [$duration]($style) "
+style = "white italic"
+
+[git_branch]
+# symbol = ' '
+symbol = 'git '
+truncation_length = 4
+truncation_symbol = ''
+# ignore_branches = ['master', 'main']
+
+[git_status]
+# format = '([\[$all_status$ahead_behind\]]($style) )'
+format = '([\[$all_status$ahead_behind\]]($style) )'
+conflicted = '=$count'
+stashed = '\$$count'
+# deleted = '✘$count'
+deleted = 'd$count'
+# renamed = '»$count'
+renamed = 'r$count'
+modified = '!$count'
+staged = '+$count'
+untracked = '?$count'
+
+[time]
+disabled = false
+style = 'white'
+format = '[$time]($style) '
+time_format = '[%b%m](%H:%M)'
+
+[character]
+error_symbol = '[❯](bold red blink)'
+vimcmd_symbol = '[❮](bold green blink)'
+# error_symbol = '[<](bold red)'
+# vimcmd_symbol = '[>](bold green)'
+disabled = true

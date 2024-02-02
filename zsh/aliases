@@ -1,0 +1,48 @@
+# alias for list files
+# alias ll='ls -lh --color'
+# alias lla='ls -lah --color'
+alias ls='lsd'
+alias ll='lsd --group-directories-first -lh'
+alias lla='lsd --group-directories-first -lah'
+
+# alias for git
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+
+# alias for cat
+alias cat='bat'
+
+# alias for tmux
+alias tls='tmux ls'
+# alias t='tmux-default'
+
+# alias for Neovim
+alias vobsidian='NVIM_APPNAME=nvims/simple nvimL -c "lcd /home/max/shared/Workspace/Obsidian" /home/max/shared/Workspace/Obsidian'
+
+
+alias d='dirs -v'
+
+for index ({1..9}) alias "$index"="cd +${index}"; unset index
+
+alias startVM-00='virsh -c qemu:///system start VM-00'
+alias startVM-01='virsh -c qemu:///system start VM-01'
+alias startVM-02='virsh -c qemu:///system start VM-02'
+alias startVM-03='virsh -c qemu:///system start VM-03'
+alias startVM-04='virsh -c qemu:///system start VM-04'
+alias startVM-05='virsh -c qemu:///system start VM-05'
+alias startVM-06='virsh -c qemu:///system start VM-06'
+alias startVM-07='virsh -c qemu:///system start VM-07'
+alias startVM-08='virsh -c qemu:///system start VM-08'
+alias startVM-09='virsh -c qemu:///system start VM-09'
+
+alias stopVM-00='virsh -c qemu:///system shutdown VM-00'
+alias stopVM-01='virsh -c qemu:///system shutdown VM-01'
+alias stopVM-02='virsh -c qemu:///system shutdown VM-02'
+alias stopVM-03='virsh -c qemu:///system shutdown VM-03'
+alias stopVM-04='virsh -c qemu:///system shutdown VM-04'
+alias stopVM-05='virsh -c qemu:///system shutdown VM-05'
+alias stopVM-06='virsh -c qemu:///system shutdown VM-06'
+alias stopVM-07='virsh -c qemu:///system shutdown VM-07'
+alias stopVM-08='virsh -c qemu:///system shutdown VM-08'
+alias stopVM-09='virsh -c qemu:///system shutdown VM-09'

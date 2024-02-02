@@ -1,0 +1,82 @@
+-- keymapping without prefix leader key (Harpoon example)
+-- require("which-key").register({
+--   h = {
+--     name = "Harpoon...",
+--     h = { function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, "... toggle menu" },
+--     p = { function() harpoon:list():prev() end, "... previous file" },
+--     n = { function() harpoon:list():next() end, "... next file" },
+--     x = { function() harpoon:list():append() end, "... mark file" },
+--   },
+-- }, { noremap = true, silent = true })
+
+-- keymapping with prefix leader key
+require("which-key").register({
+  b = {
+    name = "Buffers",
+    b = { ":edit #<cr>", "Switch" },
+    d = { ":bdelete<cr>", "Close" },
+    D = { ":bdelete!<cr>", "Close!" },
+    l = { ":buffers<cr>", "List" },
+    n = { ":bnext<cr>", "Next" },
+    p = { ":bprevious<cr>", "Previous" },
+    q = { ":q<cr>", "Quit" },
+    w = { ":w<cr>", "Write" },
+    X = { ":wq<cr>", "Save&Exit" },
+    x = { ":w|bdelete<cr>", "Save&Close" },
+  },
+  e = {
+    name = "NvimTree",
+    e = { ":NvimTreeToggle<cr>", "Toggle" },
+    f = { ":NvimTreeFindFile<cr>", "FindFile" },
+    c = { ":NvimTreeCollapse<cr>", "Collapse" },
+    r = { ":NvimTreeRefresh<cr>", "Refresh" },
+  },
+  f = {
+    name = "Folding",
+    f = { "zi", "Toogle" },
+    c = { "zM", "CloseAll" },
+    o = { "zR", "OpenAll" },
+    t = { "za", "ToggleOnCursor" },
+  },
+  m = {
+    name = "Markdown/Zettelkasten",
+    a = { function() vim.lsp.buf.code_action() end, "Toc" },
+    f = { function() vim.lsp.buf.definition() end, "Follow [[link]]" },
+    g = { function() vim.lsp.buf.workspace_symbol() end, "Grep tags/headlines" },
+    h = { ":vimgrep /^# / %<cr> | <cmd>copen<cr>", "H1" },
+    j = { ":vimgrep /^# \\|^## / %<cr> | <cmd>copen<cr>", "H1|H2" },
+    k = { ":vimgrep /^# \\|^## \\|^### / %<cr> | <cmd>copen<cr>", "H1|H2|H3" },
+    r = { function() vim.lsp.buf.rename() end, "Rename headline" },
+    s = { function() vim.lsp.buf.references() end, "Find headlines/tags" },
+    t = { function() vim.lsp.buf.hover() end, "Show link" },
+    x = { ":gx<cr>", "Open in default app" },
+    v = { ":Glow<cr>", "Glow" },
+  },
+  t = {
+    name = "Terminal/Lazy/TableMode",
+    g = { ":terminal lazygit<cr>A", "Lazygit" },
+    i = { ":Tableize<cr>", "Tableize(|)" },
+    m = { ":TableModeToggle<cr>", "TableModeToggle" },
+    r = { ":TableModeRealign<cr>", "TableRealign" },
+    t = { ":terminal<cr>A", "Terminal" },
+  },
+  s = {
+    name = "Telescope search",
+    b = { ":Telescope buffers<cr>", "Buffers" },
+    c = { ":Telescope current_buffer_fuzzy_find<cr>", "In buffer" },
+    f = { ":Telescope search_dir_picker<cr>", "In pre-selected dir" },
+    g = { ":Telescope live_grep<cr>", "Grep recursively" },
+    h = { ":Telescope help_tags<cr>", "Help" },
+    m = { ":Telescope marks<cr>", "Marks" },
+    r = { ":Telescope oldfiles<cr>", "Recent files" },
+    s = { ":Telescope find_files<cr>", "In working directory" },
+    S = { ":lua require('telescope.builtin').find_files({ cwd = '/home/max/', })<cr>", "In home directory" },
+    t = { ":Telescope builtin<cr>", "Choose Telescope" },
+  },
+  u = { ":MundoToggle<cr>", "UndoTreeToggle" },
+  z = {
+    name = "ZenMode",
+    t = { ":Twilight<cr>", "Twilight Toggle" },
+    z = { ":ZenMode<cr>", "ZenMode Toggle" },
+  },
+}, { prefix = "<leader>", noremap = true, silent = true })
