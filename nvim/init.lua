@@ -111,6 +111,7 @@ require("lazy").setup({
     },
     opts = {
       filters = {
+        git_ignored = false,
         dotfiles = true,
       },
       actions = {
