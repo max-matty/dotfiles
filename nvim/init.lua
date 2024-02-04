@@ -15,6 +15,10 @@ vim.keymap.set("n", "<C-f>", function() vim.diagnostic.open_float() end, opts)
 vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)
 
+-- Various
+vim.keymap.set("n", "0", ":close<cr>", opts)  -- close current window
+vim.keymap.set("n", "1", ":only<cr>", opts)   -- leave only current window
+
 
 -- OPTIONS and FUNCTIONS
 -- ---------------------------------
@@ -44,7 +48,7 @@ vim.opt.termguicolors = true
 vim.opt.colorcolumn = "100"
 vim.opt.signcolumn = "yes"
 vim.opt.cmdheight = 1
-vim.opt.scrolloff = 2
+vim.opt.scrolloff = 6
 vim.opt.conceallevel = 0
 vim.opt.cursorline = true
 
@@ -93,13 +97,11 @@ vim.opt.rtp:prepend(lazypath)
 
 -- install plugins
 require("lazy").setup({
-  {
-    'bluz71/vim-nightfly-guicolors',
-    enabled = true,
+  { 'folke/tokyonight.nvim',
     priority = 1000,
     config = function()
-      vim.cmd([[colorscheme nightfly]])
-    end,
+      vim.cmd([[colorscheme tokyonight-night]])
+    end
   },
   {
     "nvim-tree/nvim-tree.lua",
@@ -140,6 +142,25 @@ require("lazy").setup({
       }
     end
   },
+  { 'nvim-treesitter/nvim-treesitter',
+    config = function()
+      require('nvim-treesitter.configs').setup({
+        ensure_installed = { 'markdown', 'markdown_inline' },
+        highlight = { enable = true },
+      })
+    end
+  },
+  { 'folke/zen-mode.nvim',
+    dependencies = {
+      'folke/twilight.nvim',
+    },
+    config = function()
+      require('zen-mode').setup({
+        window = { backdrop = 1 },
+      })
+      require('twilight').setup({})
+    end
+  },
   {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v3.x',
@@ -147,29 +168,26 @@ require("lazy").setup({
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'neovim/nvim-lspconfig',
-      'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/nvim-cmp',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
       'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip',
+      'rafamadriz/friendly-snippets',
     },
     config = function()
       local lsp_zero = require('lsp-zero')
-
---      lsp_zero.on_attach(function(client, bufnr)
-        -- see :help lsp-zero-keybindings
-        -- to learn the available actions
---        lsp_zero.default_keymaps({
---          buffer = bufnr,
---          preserve_mappings = false
---        })
---      end)
-
-      -- here you can setup the language servers
+      lsp_zero.on_attach(function(client, bufnr)
+        lsp_zero.default_keymaps({
+          buffer = bufnr,
+          preserve_mappings = false
+        })
+      end)
       require('mason').setup({})
       require('mason-lspconfig').setup({
         ensure_installed = { 'marksman' },
         handlers = {
---          lsp_zero.default_setup,
-
           -- marksman server
           marksman = function()
             require('lspconfig').marksman.setup({
@@ -192,12 +210,37 @@ require("lazy").setup({
           end,
         },
       })
-    end,
+      -- completion adding buffer and snippet source
+      local cmp = require('cmp')
+      local cmp_action = require('lsp-zero').cmp_action()
+      local cmp_format = require('lsp-zero').cmp_format()
+      require('luasnip.loaders.from_vscode').lazy_load()
+      cmp.setup({
+        snippet = {
+          expand = function(args)
+            require'luasnip'.lsp_expand(args.body)
+          end
+        },
+        sources = {
+          {name = 'nvim_lsp'},
+          {name = 'buffer'},
+          {name = 'path'},
+          {name = 'luasnip'},
+        },
+        mapping = cmp.mapping.preset.insert({
+          ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-d>'] = cmp.mapping.scroll_docs(4),  
+          ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+          ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+        }),
+        formatting = cmp_format,
+      })
+    end
   },
 }, {
-  install = {
-    colorscheme = { "nightfly" },
-  },
+--  install = {
+--    colorscheme = { "tokyonight-night" },
+--  },
   rtp = {
     disabled_plugins = {
       "netrw",
@@ -246,13 +289,19 @@ require("which-key").register({
     h = { ":Telescope help_tags<cr>", "Helps" },
     m = { ":Telescope marks<cr>", "Marks" },
     r = { ":Telescope oldfiles<cr>", "Recent files" },
-    s = { ":Telescope find_files<cr>", "In working directory" },
-    S = { ":lua require('telescope.builtin').find_files({ cwd = '/home/max/', })<cr>", "In home directory" },
+    s = { ":Telescope find_files<cr>", "Files in working directory" },
+    S = { ":lua require('telescope.builtin').find_files({cwd='/home/max/'})<cr>", "Files in home directory" },
     t = { ":Telescope builtin<cr>", "Choose Telescope" },
+    z = { ":lua require('telescope.builtin').live_grep({cwd='/home/max/shared/zk/'})<cr>", "Grep in zettelksten" },
   },
   t = {
     name = "Terminal/Lazy",
     g = { ":terminal lazygit<cr>A", "Lazygit" },
     t = { ":terminal<cr>A", "Terminal" },
+  },
+  z = {
+    name = "ZenMode",
+    t = { ":Twilight<cr>", "Twilight Toggle" },
+    z = { ":ZenMode<cr>", "ZenMode Toggle" },
   },
 }, { prefix = "<leader>", noremap = true, silent = true })
