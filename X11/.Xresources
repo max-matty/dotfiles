@@ -28,7 +28,7 @@
 *.color7:       #c0c5ce
 *.color15:      #eff1f5
 
-URxvt*font:xft:FiraMonoNerdFontMono:size=14:antialias=true
+URxvt*font:xft:JetBrainsMonoNLNerdFontMono:size=14:antialias=true
 !URxvt*letterSpace: -1
 
 URxvt*borderLess: false
