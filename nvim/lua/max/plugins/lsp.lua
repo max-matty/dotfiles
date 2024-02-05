@@ -22,6 +22,12 @@ return
         preserve_mappings = false
       })
     end)
+    lsp_zero.set_sign_icons({
+      error = '✘',
+      warn = '▲',
+      hint = '⚑',
+      info = '»'
+    })
     require('mason').setup({})
     require('mason-lspconfig').setup({
       ensure_installed = { 'marksman' },
@@ -31,14 +37,20 @@ return
           require('lspconfig').marksman.setup({
             single_file_support = false,
             on_attach = function(client, bufnr)
+              require("which-key").register({
+                m = {
+                  name = "Markdown",
+                  f = { function() require('conform').format() end, "formatting" },
+                },
+              }, { mode = { "n", "v" }, prefix = "<leader>", buffer = bufnr, noremap = false })
               print('Welcome to Marksman LSP server')
               require("which-key").register({
                 m = {
-                  name = "Marksman",
+                  name = "Markdown",
+                  a = { function() vim.lsp.buf.code_action() end, "code actions" },
                   g = { function() vim.lsp.buf.definition() end, "go to definition" },
                   K = { function() vim.lsp.buf.hover() end, "show definition" },
                   q = { function() vim.lsp.buf.workspace_symbol() end, "query workspace" },
-                  a = { function() vim.lsp.buf.code_action() end, "code actions" },
                   r = { function() vim.lsp.buf.references() end, "show references" },
                   R = { function() vim.lsp.buf.rename() end, "rename definition" },
                 },
