@@ -26,7 +26,7 @@ ln -s "$DOTFILES/nvim" "$XDG_CONFIG_HOME"
 #ln -sf "$XDG_CONFIG_HOME/mdl/.mdlrc" "$HOME/"
 #ln -sf "$DOTFILES/nvim-stuffs/.editorconfig" "$HOME/"
 #ln -sf "$DOTFILES/nvim-stuffs/.luacheckrc" "$HOME/"
-#ln -sf "$DOTFILES/nvim-stuffs/.markdownlintrc" "$HOME/"
+ln -sf "$DOTFILES/nvim-stuffs/.markdownlintrc" "$HOME/"
 #ln -sf "$DOTFILES/nvim-stuffs/.shellcheckrc" "$HOME/"
 
 ################
