@@ -17,6 +17,7 @@ return
         d = { function() vim.diagnostic.open_float() end, "open float diagnostic" },
         n = { function() vim.diagnostic.goto_next() end, "next diagnostic" },
         p = { function() vim.diagnostic.goto_prev() end, "previous diagnostics" },
+        t = { function() require('trouble').toggle() end, "trouble toggle" },
       },
       e = {
         name = "Explore files...",

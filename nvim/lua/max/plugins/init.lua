@@ -31,18 +31,14 @@ return
     config = true
   },
   {
-    'nvim-treesitter/nvim-treesitter',
-    config = function()
-      require('nvim-treesitter.configs').setup({
-        ensure_installed = { 'markdown', 'markdown_inline' },
-        highlight = { enable = true },
-      })
-    end
-  },
-  {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
     opts = {}
+  },
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = true
   },
   {
     'folke/zen-mode.nvim',
