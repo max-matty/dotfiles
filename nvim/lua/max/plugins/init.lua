@@ -7,6 +7,10 @@ return
     end
   },
   {
+    "numToStr/Comment.nvim",
+    config = true
+  },
+  {
     "nvim-tree/nvim-tree.lua",
     version = "*",
     dependencies = {
