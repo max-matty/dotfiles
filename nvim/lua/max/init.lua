@@ -6,6 +6,14 @@ local opts = { noremap = true, silent = true }
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Comments for neovim-qt
+vim.api.nvim_set_keymap("n", "<C-s-_>", "gcc", { noremap = false })
+vim.api.nvim_set_keymap("v", "<C-s-_>", "gc", { noremap = false })
+
+-- Comments for neovim terminal
+vim.api.nvim_set_keymap("n", "<C-_>", "gcc", { noremap = false })
+vim.api.nvim_set_keymap("v", "<C-_>", "gc", { noremap = false })
+
 -- Diagnostics
 vim.keymap.set("n", "<C-n>", function() vim.diagnostic.goto_next() end, opts)
 vim.keymap.set("n", "<C-p>", function() vim.diagnostic.goto_prev() end, opts)
