@@ -19,6 +19,7 @@ alias cat='bat'
 
 # alias for Neovim
 # alias vobsidian='NVIM_APPNAME=nvims/simple nvimL -c "lcd /home/max/shared/Workspace/Obsidian" /home/max/shared/Workspace/Obsidian'
+alias vv='nvim'
 
 
 alias d='dirs -v'
