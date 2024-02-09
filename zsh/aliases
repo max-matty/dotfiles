@@ -14,11 +14,11 @@ alias gp='git push'
 alias cat='bat'
 
 # alias for tmux
-alias tls='tmux ls'
+# alias tls='tmux ls'
 # alias t='tmux-default'
 
 # alias for Neovim
-alias vobsidian='NVIM_APPNAME=nvims/simple nvimL -c "lcd /home/max/shared/Workspace/Obsidian" /home/max/shared/Workspace/Obsidian'
+# alias vobsidian='NVIM_APPNAME=nvims/simple nvimL -c "lcd /home/max/shared/Workspace/Obsidian" /home/max/shared/Workspace/Obsidian'
 
 
 alias d='dirs -v'
