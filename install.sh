@@ -35,6 +35,8 @@ ln -sf "$DOTFILES/nvim-stuffs/.markdownlintrc" "$HOME/"
 
 #ln -sf "$DOTFILES/other-stuffs/.nbrc" "$HOME/"
 #ln -sf "$DOTFILES/other-stuffs/starship.toml" "$HOME/.config/"
+ln -sf "$DOTFILES/other-stuffs/config.yml" "$HOME/hugo/zk/"
+ln -sf "$DOTFILES/other-stuffs/chromium-flags.conf" "$XDG_CONFIG_HOME"
 
 ######
 # nb #
