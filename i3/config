@@ -80,6 +80,11 @@ bindsym $mod+Shift+Right move right
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
+# split container
+bindsym $mod+Control+v split vertical
+bindsym $mod+Control+h split horizontal
+bindsym $mod+Control+t split toggle
+
 # Define names for default workspaces
 set $ws1 "1:Web"
 set $ws2 "2:Term"
