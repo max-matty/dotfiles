@@ -43,6 +43,9 @@ bindsym $mod+Return exec urxvtc
 # start Neovim GUI (built from source) fullscreen
 # bindsym $mod+n exec NVIM_APPNAME=nvims/LSP nvim-qt --fullscreen --nvim nvimL /home/max
 
+# screenshot
+bindsym Print exec flameshot gui
+
 # kill focused window
 bindsym $mod+Shift+q kill
 bindsym $mod+Ctrl+q exec tmux kill-server
