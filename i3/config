@@ -38,10 +38,10 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym $mod+Return exec urxvtc
 
 # start tmux default session
-bindsym $mod+q exec urxvtc -e tmux-default
+# bindsym $mod+q exec urxvtc -e tmux-default
 
 # start Neovim GUI (built from source) fullscreen
-bindsym $mod+n exec NVIM_APPNAME=nvims/LSP nvim-qt --fullscreen --nvim nvimL /home/max
+# bindsym $mod+n exec NVIM_APPNAME=nvims/LSP nvim-qt --fullscreen --nvim nvimL /home/max
 
 # kill focused window
 bindsym $mod+Shift+q kill
