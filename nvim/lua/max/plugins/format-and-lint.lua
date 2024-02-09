@@ -33,12 +33,6 @@ return
           lint.try_lint()
         end,
       })
-      require("which-key").register({
-        m = {
-          name = "Markdown",
-          l = { function() lint.try_lint() end, "lint buffer" },
-        },
-      }, { prefix = "<leader>", buffer = 0, noremap = false })
     end,
   }
 }
