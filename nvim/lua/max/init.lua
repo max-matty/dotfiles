@@ -23,10 +23,6 @@ vim.keymap.set("n", "<C-f>", function() vim.diagnostic.open_float() end, opts)
 vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)
 
--- Various
-vim.keymap.set("n", "2", ":close<cr>", opts)  -- close current window
-vim.keymap.set("n", "1", ":only<cr>", opts)   -- leave only current window
-
 
 -- OPTIONS and FUNCTIONS
 -- ---------------------------------
