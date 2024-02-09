@@ -40,8 +40,11 @@ return
         z = { ":lua require('telescope.builtin').live_grep({cwd='/home/max/shared/zk/'})<cr>", "Grep in zettelksten" },
       },
       t = {
-        name = "Terminal/Lazy",
+        name = "Terminal/Lazy/TableMode",
         g = { ":terminal lazygit<cr>A", "Lazygit" },
+        i = { ":Tableize<cr>", "Tableize(|)" },
+        m = { ":TableModeToggle<cr>", "TableModeToggle" },
+        r = { ":TableModeRealign<cr>", "TableRealign" },
         t = { ":terminal<cr>A", "Terminal" },
       },
       z = {
