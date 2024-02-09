@@ -254,25 +254,25 @@ for_window [class="kitty*"] border pixel 1
 for_window [class="org.wezfurlong.wezterm*"] border pixel 1
 
 # Terminal scratchpad with tmux
-for_window [instance="urxvt_scratchpad"] move to scratchpad, border none
-bindsym $mod+Shift+t [instance="urxvt_scratchpad"] scratchpad show
-exec urxvtc -name urxvt_scratchpad
+# for_window [instance="urxvt_scratchpad"] move to scratchpad, border none
+# bindsym $mod+Shift+t [instance="urxvt_scratchpad"] scratchpad show
+# exec urxvtc -name urxvt_scratchpad
 
 # htop scratchpad
-for_window [instance="htop_scratchpad"] move to scratchpad, border none
-bindsym $mod+Shift+p [instance="htop_scratchpad"] scratchpad show
-exec urxvtc -name htop_scratchpad -e htop
+# for_window [instance="htop_scratchpad"] move to scratchpad, border none
+# bindsym $mod+Shift+p [instance="htop_scratchpad"] scratchpad show
+# exec urxvtc -name htop_scratchpad -e htop
 
 # set display resolution (VM)
-set $mode_display monitor [a]cer [s]amsung
-mode "$mode_display" {
-    bindsym a exec --no-startup-id sh "$HOME/.config/X11/asus-monitor.sh", mode "default"
-    bindsym s exec --no-startup-id sh "$HOME/.config/X11/samsung-monitor.sh", mode "default"
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+a mode "$mode_display"
+# set $mode_display monitor [a]cer [s]amsung
+# mode "$mode_display" {
+#     bindsym a exec --no-startup-id sh "$HOME/.config/X11/asus-monitor.sh", mode "default"
+#     bindsym s exec --no-startup-id sh "$HOME/.config/X11/samsung-monitor.sh", mode "default"
+#     # back to normal: Enter or Escape
+#     bindsym Return mode "default"
+#     bindsym Escape mode "default"
+# }
+# bindsym $mod+a mode "$mode_display"
 
 # i3bar
 bar {
