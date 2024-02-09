@@ -30,7 +30,7 @@ return
     })
     require('mason').setup({})
     require('mason-lspconfig').setup({
-      ensure_installed = { 'marksman' },
+      ensure_installed = { 'marksman', 'bashls' },
       handlers = {
         -- marksman server
         marksman = function()
@@ -55,6 +55,16 @@ return
                   R = { function() vim.lsp.buf.rename() end, "rename definition" },
                 },
               }, { prefix = "<leader>", buffer = bufnr, noremap = false })
+            end,
+          })
+        end,
+        -- bash server
+        bashls = function()
+          require('lspconfig').bashls.setup({
+            single_file_support = false,
+            on_attach = function(client, bufnr)
+              lsp_zero.default_keymaps({buffer = bufnr})
+              print('Welcome to Bash LSP server')
             end,
           })
         end,
