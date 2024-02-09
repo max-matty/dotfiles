@@ -10,6 +10,7 @@ return
     "numToStr/Comment.nvim",
     config = true
   },
+  { "dhruvasagar/vim-table-mode" },
   {
     "nvim-tree/nvim-tree.lua",
     version = "*",
