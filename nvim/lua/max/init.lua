@@ -23,6 +23,9 @@ vim.keymap.set("n", "<C-f>", function() vim.diagnostic.open_float() end, opts)
 vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)
 
+-- Confirm link insert in markdown files
+vim.keymap.set("i", "<Esc><Esc>", "<Esc>i.md<Esc>", opts) -- add .md at point
+
 
 -- OPTIONS and FUNCTIONS
 -- ---------------------------------

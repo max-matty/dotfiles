@@ -30,7 +30,7 @@ return
     })
     require('mason').setup({})
     require('mason-lspconfig').setup({
-      ensure_installed = { 'marksman', 'bashls' },
+      ensure_installed = { 'marksman', 'zk', 'bashls' },
       handlers = {
         -- marksman server
         marksman = function()
@@ -56,6 +56,12 @@ return
                 },
               }, { prefix = "<leader>", buffer = bufnr, noremap = false })
             end,
+          })
+        end,
+        -- zk server
+        zk = function()
+          require('lspconfig').zk.setup({
+            -- single_file_support = false,
           })
         end,
         -- bash server
