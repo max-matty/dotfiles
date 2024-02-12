@@ -6,4 +6,4 @@ I `git clone` the repository and set environmental variable _$DOTFILES_ to the d
 
 All the files and directorues will replace once in my system with my configurations.
 
-Related project is _arch_installer_ for automate installazione of a new fresh arch linux virtual machine through virt-manager.
+Related project is _archinstaller_ for automate installation of a new fresh arch linux virtual machine through `virt-manager`.
