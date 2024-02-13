@@ -125,6 +125,7 @@ workspace_auto_back_and_forth yes
 
 focus_follows_mouse no
 
+# start vitual machines created with virt-manager
 bindsym $mod+Control+0 exec virsh -c qemu:///system start VM-00 && sleep 2 && spicy -h localhost -p 5900 -f
 bindsym $mod+Control+1 exec virsh -c qemu:///system start VM-01 && sleep 2 && spicy -h localhost -p 5901 -f
 bindsym $mod+Control+2 exec virsh -c qemu:///system start VM-02 && sleep 2 && spicy -h localhost -p 5902 -f
@@ -135,6 +136,9 @@ bindsym $mod+Control+6 exec virsh -c qemu:///system start VM-06 && sleep 2 && sp
 bindsym $mod+Control+7 exec virsh -c qemu:///system start VM-07 && sleep 2 && spicy -h localhost -p 5907 -f
 bindsym $mod+Control+8 exec virsh -c qemu:///system start VM-08 && sleep 2 && spicy -h localhost -p 5908 -f
 bindsym $mod+Control+9 exec virsh -c qemu:///system start VM-09 && sleep 2 && spicy -h localhost -p 5909 -f
+
+# start windows11 created with quickemu
+bindsym $mod+Control+w exec quickemu --vm /home/max/quickemu/windows-11.conf --fullscreen --display spice
 
 # shortcut to lockscreen
 set $i3lockwall i3lock --nofork
