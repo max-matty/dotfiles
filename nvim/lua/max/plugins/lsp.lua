@@ -32,10 +32,11 @@ return
     require('mason-lspconfig').setup({
       ensure_installed = { 'marksman', 'zk', 'bashls' },
       handlers = {
+        lsp_zero.default_setup,
         -- marksman server
         marksman = function()
           require('lspconfig').marksman.setup({
-            single_file_support = false,
+            -- single_file_support = false,
             on_attach = function(client, bufnr)
               require("which-key").register({
                 m = {
@@ -67,7 +68,7 @@ return
         -- bash server
         bashls = function()
           require('lspconfig').bashls.setup({
-            single_file_support = false,
+            -- single_file_support = false,
             on_attach = function(client, bufnr)
               lsp_zero.default_keymaps({buffer = bufnr})
               print('Welcome to Bash LSP server')
