@@ -109,6 +109,10 @@ set $ws8 "8"
 set $ws9 "9:VM"
 set $ws10 "10:SW"
 
+# startup apps
+exec --no-startup-id sh -c 'i3-msg workspace $ws1; exec /usr/bin/chromium'
+exec --no-startup-id sh -c 'sleep 1; i3-msg workspace $ws2; exec urxvtc'
+
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2
