@@ -48,6 +48,9 @@ bindsym $mod+Return exec urxvtc
 
 # start tmux default session
 # bindsym $mod+q exec urxvtc -e tmux-default
+# start emacs
+bindsym $mod+e exec urxvtc -e /usr/bin/emacsclient -t --alternate-editor='emacs -nw'
+bindsym $mod+q exec /usr/bin/emacsclient -c --alternate-editor='emacs'
 
 # start Neovim GUI (built from source) fullscreen
 # bindsym $mod+n exec NVIM_APPNAME=nvims/LSP nvim-qt --fullscreen --nvim nvimL /home/max
