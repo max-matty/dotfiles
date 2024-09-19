@@ -30,4 +30,5 @@ export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # nnn config
-export NNN_PLUG="m:boom;u:getplugs;i:imgview;p:mocq"
+export NNN_PLUG="i:imgview;m:boom;p:mocq;u:getplugs"
+# export NNN_BMS="h:$HOME;z:$HOME/shared/zk"
