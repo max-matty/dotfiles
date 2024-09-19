@@ -45,9 +45,9 @@ bindsym Scroll_Lock exec /home/max/shared/bin/backlight.sh
 
 # start a terminal
 bindsym $mod+Return exec urxvtc
-
 # start tmux default session
-# bindsym $mod+q exec urxvtc -e tmux-default
+bindsym $mod+Shift+Return exec urxvtc -e /home/max/shared/bin/start-tmux.sh
+
 # start emacs
 bindsym $mod+e exec urxvtc -e /usr/bin/emacsclient -t --alternate-editor='emacs -nw'
 bindsym $mod+q exec /usr/bin/emacsclient -c --alternate-editor='emacs'
