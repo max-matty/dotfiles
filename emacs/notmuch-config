@@ -1,0 +1,16 @@
+[database]
+path=/home/max/Gmail
+
+[user]
+name=Massimo Fontana
+primary_email=maxmatty@gmail.com
+
+[new]
+tags=unread;inbox
+ignore=/.*[.](json|lock|bak)$/
+
+[search]
+exclude_tags=deleted;spam;
+
+[maildir]
+#	synchronize_flags      Valid values are true and false.

@@ -44,11 +44,17 @@
 (setq initial-buffer-choice "~/Downloads") ; Show this directory after boot.
 (add-to-list 'default-frame-alist '(fullscreen . fullboth)) ; Start fullscreen.
 (load-theme 'modus-vivendi t) ; Load default theme.
+(setq dired-kill-when-opening-new-dired-buffer t) ; Dired open new directory in the same buffer
+
+;; Display date and time in modeline
+(setq display-time-string-forms
+       '((propertize (concat "(" day "/" month "/" year "-" 24-hours ":" minutes ")"))))
+(display-time-mode t)
 
 ;; Load some modules.
-(require 'org-habit)
-(require 'notmuch)
-(require 'org-tempo)
+(require 'org-habit) ; Manage habits in Org Mode
+(require 'notmuch) ; Manage emails
+(require 'org-tempo) ; Expand '<s' to source block
 
 ;; EMAIL STUFFS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -73,13 +79,25 @@
 (setq notmuch-show-logo nil)
 (setq notmuch-tree-unthreaded t)
 (setq notmuch-saved-searches '(
- (:name "new" :query "tag:new" :key "n" :sort-order newest-first)	       (:name "inbox" :query "tag:inbox" :key "i" :sort-order newest-first)
+ (:name "new" :query "tag:new" :key "n" :sort-order newest-first)
+ (:name "inbox" :query "tag:inbox" :key "i" :sort-order newest-first)
  (:name "unread" :query "tag:unread" :key "u" :sort-order newest-first)
+ (:name "leggere" :query "tag:leggere" :key "l" :sort-order newest-first)
+ (:name "important" :query "tag:important" :key "x" :sort-order newest-first)
  (:name "flagged" :query "tag:flagged" :key "f" :sort-order newest-first)
  (:name "sent" :query "tag:sent" :key "t" :sort-order newest-first)
  (:name "drafts" :query "tag:draft" :key "d" :sort-order newest-first)
  (:name "all mail" :query "*" :key "a" :sort-order newest-first)))
-(setq notmuch-hello-sections '(notmuch-hello-insert-header notmuch-hello-insert-saved-searches notmuch-hello-insert-recent-searches))
+(setq notmuch-hello-sections '(notmuch-hello-insert-header notmuch-hello-insert-saved-searches))
+(setq notmuch-tagging-keys'(
+	("u" ("+unread") "unread")
+	("r" ("-unread") "read")
+	("i" ("-trash" "-spam" "+inbox") "inbox")
+	("a" ("-inbox" "-unread" "-important" "-spam") "arhive")
+	("t" ("-inbox" "-unread" "-important" "-spam" "+trash") "trash")
+	("s" ("-inbox" "-unread" "-important" "+spam") "spam")
+	("f" ("-inbox" "+important") "important")
+	))
 
 ;; PACKAGES
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -107,6 +125,14 @@
 	completion-category-overrides '((file (styles partial-completion))))
   )
 
+;; Enable rich annotations using the Marginalia package.
+(use-package marginalia
+  :ensure t
+  :bind (:map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
+  :init
+  (marginalia-mode))
+
 ;; Search better.
 (use-package consult
   :ensure t
@@ -127,6 +153,19 @@
   (consult-find "~/")
   )
 
+;; Better interactions with Notmuch.
+(use-package consult-notmuch
+  :ensure t
+  )
+
+;; Searching in different directoies.
+(use-package consult-dir
+  :ensure t
+  :bind (("C-x C-d" . consult-dir)
+         :map minibuffer-local-completion-map
+         ("C-x C-d" . consult-dir)
+         ("C-x C-j" . consult-dir-jump-file)))
+
 ;; Completion.
 (use-package company
   :ensure t
@@ -141,10 +180,10 @@
   (setq org-caldav-url "https://cal.max73.net/max")
   (setq org-caldav-calendar-id "1396ea95-3b56-74fd-4807-493c511ec123")
   (setq org-caldav-inbox "~/.gtd/caldav.org")
-  (setq org-caldav-files "~/.gtd/gtd.org")
+  (setq org-caldav-files '("/srv/http/html/dav/gtd.org"))
   (setq org-icalendar-timezone "Europe/Rome")
+  (setq org-icalendar-use-scheduled '(event-if-todo event-if-not-todo event-if-todo-not-done todo-start))
   )
-
 
 ;; Dot files toggle visibility in Dired.
 (use-package dired-hide-dotfiles
@@ -155,38 +194,27 @@
   (:map dired-mode-map ("." . dired-hide-dotfiles-mode))
   )
 
-;; ;; 'magit' (git interface)
-;; (use-package magit
-;;   :ensure t
-;;   :config
-;;   (load-file "~/.emacs.d/magit-settings.el"))
+;; 'magit' (git interface)
+(use-package magit
+  :ensure t
+  :config
+  (setq magit-repository-directories '(("~/dotfiles" . 1)))
+  (setq magit-repolist-columns '(
+	  ("Name" 15 magit-repolist-column-ident nil)
+	  ("Version" 25 magit-repolist-column-version nil)
+	  ("B<U" 3 magit-repolist-column-unpulled-from-upstream
+	   ((:right-align t)
+	    (:help-echo "Upstream changes not in branch")))
+	  ("B>U" 3 magit-repolist-column-unpushed-to-upstream
+	   ((:right-align t)
+	    (:help-echo "Local changes not in upstream")))
+	  ("FLAG" 4 magit-repolist-column-flag nil)
+	  ("Path" 99 magit-repolist-column-path nil)
+	  ))
+  )
 
 ;; ORG MODE
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Beauty bullets for headlines.
-(use-package org-bullets
-  :ensure t
-  :config
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-  )
-
-;; Dimensione delle headline e altra formattazione.
-(let* (
-       (base-font-color     (face-foreground 'default nil 'default))
-       (headline           `(:weight bold))
-       )
-  (custom-theme-set-faces
-   'user
-   `(org-level-8 ((t (,@headline))))
-   `(org-level-7 ((t (,@headline))))
-   `(org-level-6 ((t (,@headline))))
-   `(org-level-5 ((t (,@headline))))
-   `(org-level-4 ((t (,@headline :height 1.00))))
-   `(org-level-3 ((t (,@headline :height 1.10))))
-   `(org-level-2 ((t (,@headline :height 1.15))))
-   `(org-level-1 ((t (,@headline :height 1.20))))
-   `(org-document-title ((t (,@headline :height 1.05 :underline nil))))))
 
 ;; Do not split line when M-<RET>.
 (set 'org-M-RET-may-split-line '((default . nil)))
@@ -195,22 +223,21 @@
 (setq org-capture-templates
       '(
 	("b" "Blog" entry
-	 (file+headline "~/.gtd/gtd.org" "BLOG")
+	 (file "/srv/http/html/dav/gtd.org")
 	 (file "~/.gtd/tpl/blog.txt")
 	 :prepend t
 	 )
 	("g" "GTD" entry
-	 (file "~/.gtd/gtd.org")
+	 (file "/srv/http/html/dav/gtd.org")
 	 (file "~/.gtd/tpl/gtd.txt")
 	 :prepend t
 	 )
 	("h" "Habit" entry
-	 (file "~/.gtd/gtd.org")
+	 (file "/srv/http/html/dav/gtd.org")
 	 (file "~/.gtd/tpl/habit.txt")
 	 :prepend t
 	 )
 	))
-
 
 ;; AGENDA SETTINGS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -229,7 +256,13 @@
 (setq org-habit-preceding-days 12) ; Days before today in graph.
 (setq org-habit-following-days 3) ; Days before today in graph.
 (setq org-agenda-remove-tags t) ; Not showing tags at the and of item.
-(setq org-agenda-files '("~/.gtd/gtd.org" "~/.gtd/caldav.org"))
+(setq org-agenda-files '("/srv/http/html/dav/gtd.org" "~/.gtd/caldav.org"))
+(setq org-refile-targets '(
+			   ("/srv/http/html/dav/gtd.org" :maxlevel . 1)
+			   ))
+(setq org-refile-use-outline-path 'file)
+(setq org-outline-path-complete-in-steps t)
+(setq org-reverse-note-order t)
 
 ;; Org Projects settings.
 (setq org-enforce-todo-dependencies t)
@@ -250,40 +283,41 @@
 ;; Agenda custom commands
 (setq org-agenda-custom-commands
       '(("g" "GTD" (
-	  (todo "*" (
+	  (todo "NEXT|WAIT" (
 		   (org-agenda-overriding-header "NEXT/WAIT not in Agenda")
-		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp 'nottodo '("NEXT" "WAIT")))
+		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp))
 		   (org-agenda-sorting-strategy '((tag-up)))
 		   ))
 	  (agenda "" (
 		   (org-agenda-overriding-header "Day Agenda")
+		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("CAPTURED")))
 		   (org-agenda-span 1)
 		   ))
 	  (agenda "" (
                    (org-agenda-overriding-header "Next 3 Days")
+		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("CAPTURED")))
 		   (org-agenda-start-on-weekday nil)
 		   (org-agenda-start-day "+1d")
 		   (org-agenda-span 3)
 		   (org-agenda-show-all-dates nil)
 		   ))
 	  (agenda "" (
-                   (org-agenda-overriding-header "Undone/Pending last 30 Days")
+                   (org-agenda-overriding-header "Pending last 30 Days")
+		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo '("TODO" "NEXT" "WAIT" "SOMEDAY")))
 		   (org-agenda-start-on-weekday nil)
 		   (org-agenda-start-day "-30d")
 		   (org-agenda-span 30)
 		   (org-agenda-show-all-dates nil)
-		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo '("TODO" "NEXT" "WAIT" "UNDONE")))
 		   ))
-	  (tags "*" (
+	  (todo "CAPTURED" (
 		   (org-agenda-overriding-header "To be processed")
-		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp "^\* PXL \\|:CAPTURED:"))
 		   ))
-	  (todo "" (
+	  (todo "TODO|SOMEDAY" (
 		   (org-agenda-overriding-header "REVIEW")
-		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp 'nottodo '("TODO" "SOMEDAY")))
+		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp))
 		   ))
-	  (tags "HABITS" (
-		   (org-agenda-overriding-header "HABIT")
+	  (tags-todo "HABIT" (
+		   (org-agenda-overriding-header "HABITS")
 		   ))
 	  ))
       ))
