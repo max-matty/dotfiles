@@ -1,6 +1,8 @@
 fpath=($ZDOTDIR/external $fpath)
 
 export EDITOR=nvim
+export BROWSER="chromium"
+#export BROWSER="lynx"
 export TERM="xterm-256color"
 # export TERM="tmux-256color"
 
@@ -12,7 +14,8 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
-autoload -Uz compinit; compinit
+autoload -Uz compinit
+compinit
 _comp_options+=(globdots) # With hidden files
 source ~/dotfiles/zsh/external/completion.zsh
 
@@ -23,7 +26,8 @@ source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
-autoload -Uz prompt_purification_setup; prompt_purification_setup
+autoload -Uz prompt_purification_setup
+prompt_purification_setup
 autoload -Uz cursor_mode && cursor_mode
 
 # Push the current directory visited on to the stack.
@@ -40,17 +44,20 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
+# start in normal mode
+# autoload -Uz add-zle-hook-widget
+# add-zle-hook-widget line-init vi-cmd-mode
+
 source ~/dotfiles/zsh/external/bd.zsh
 
 if [ $(command -v "fzf") ]; then
-    source /usr/share/fzf/completion.zsh
-    source /usr/share/fzf/key-bindings.zsh
+  source /usr/share/fzf/completion.zsh
+  source /usr/share/fzf/key-bindings.zsh
 fi
 
 ## automatically start i3wm
-if [ "$(tty)" = "/dev/tty1" ];
- then
-     pgrep i3 || exec startx "$XDG_CONFIG_HOME/X11/.xinitrc"
+if [ "$(tty)" = "/dev/tty1" ]; then
+  pgrep i3 || exec startx "$XDG_CONFIG_HOME/X11/.xinitrc"
 fi
 
 source $DOTFILES/zsh/scripts.sh
@@ -62,10 +69,13 @@ bindkey -r '^l'
 bindkey -r '^g'
 bindkey -s '^g' 'clear\n'
 
-scratchpad () {
+scratchpad() {
   "$DOTFILES/zsh/scratchpad.sh"
 }
 
 # gem executable
 export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
 export PATH="$PATH:$GEM_HOME/bin"
+
+# Created by `pipx` on 2024-09-18 20:46:44
+export PATH="$PATH:/home/max/.local/bin"

@@ -39,8 +39,8 @@ t() {
 		tmux attach-session -d -t default
 	else
 		tmux new-session -d -s default
-		tmux new-window 'NVIM_APPNAME="nvims/LSP" nvimL ~/'
-		tmux new-window 'top'
+		# tmux new-window 'nvim ~/'
+		# tmux new-window 'top'
 		tmux attach-session -t default:1
 	fi
 }

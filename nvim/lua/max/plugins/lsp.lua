@@ -18,8 +18,20 @@ return
     local lsp_zero = require('lsp-zero')
     lsp_zero.on_attach(function(client, bufnr)
       lsp_zero.default_keymaps({
-        buffer = bufnr,
-        preserve_mappings = false
+        -- buffer = bufnr,
+        -- preserve_mappings = false
+        require("which-key").register({
+          l = {
+            name = "LSP",
+            a = { function() vim.lsp.buf.code_action() end, "code actions" },
+            f = { ":Neoformat<cr>", "format" },
+            g = { function() vim.lsp.buf.definition() end, "go to definition" },
+            K = { function() vim.lsp.buf.hover() end, "show definition" },
+            q = { function() vim.lsp.buf.workspace_symbol() end, "query workspace" },
+            r = { function() vim.lsp.buf.references() end, "show references" },
+            R = { function() vim.lsp.buf.rename() end, "rename definition" },
+          },
+        }, { prefix = "<leader>", buffer = bufnr, noremap = false })
       })
     end)
     lsp_zero.set_sign_icons({
@@ -30,7 +42,7 @@ return
     })
     require('mason').setup({})
     require('mason-lspconfig').setup({
-      ensure_installed = { 'marksman', 'zk', 'bashls' },
+      ensure_installed = { 'marksman', 'zk', 'bashls', 'html' },
       handlers = {
         lsp_zero.default_setup,
         -- marksman server
@@ -75,6 +87,26 @@ return
             end,
           })
         end,
+        -- html server
+        html = function()
+          require('lspconfig').html.setup({
+            -- single_file_support = false,
+            on_attach = function(client, bufnr)
+              lsp_zero.default_keymaps({buffer = bufnr})
+              print('Welcome to Html LSP server')
+            end,
+          })
+        end,
+        -- javascript server
+        tsserver = function()
+          require('lspconfig').tsserver.setup({
+            -- single_file_support = false,
+            on_attach = function(client, bufnr)
+              lsp_zero.default_keymaps({buffer = bufnr})
+              print('Welcome to Javascript LSP server')
+            end,
+          })
+        end,
       },
     })
     -- completion adding buffer and snippet source
@@ -89,10 +121,10 @@ return
         end
       },
       sources = {
-        {name = 'nvim_lsp'},
+        {name = 'nvim_lsp', priority = 6 },
         -- {name = 'buffer'},
-        {name = 'path'},
-        {name = 'luasnip'},
+        {name = 'path', priority = 4 },
+        {name = 'luasnip', priority = 8 },
       },
       mapping = cmp.mapping.preset.insert({
         ['<C-u>'] = cmp.mapping.scroll_docs(-4),

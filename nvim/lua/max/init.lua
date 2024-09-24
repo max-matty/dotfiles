@@ -23,8 +23,24 @@ vim.keymap.set("n", "<C-f>", function() vim.diagnostic.open_float() end, opts)
 vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)
 
+-- Pane and Window Navigation
+vim.keymap.set("n", "<C-h>", ":<C-w>h<cr>", opts) -- Navigate Left
+vim.keymap.set("n", "<C-j>", ":<C-w>j<cr>", opts) -- Navigate Down
+vim.keymap.set("n", "<C-k>", ":<C-w>k<cr>", opts) -- Navigate Up
+vim.keymap.set("n", "<C-l>", ":<C-w>l<cr>", opts) -- Navigate Right
+vim.keymap.set("n", "<C-h>", ":TmuxNavigateLeft<cr>", opts) -- Navigate Left
+vim.keymap.set("n", "<C-j>", ":TmuxNavigateDown<cr>", opts) -- Navigate Down
+vim.keymap.set("n", "<C-k>", ":TmuxNavigateUp<cr>", opts) -- Navigate Up
+vim.keymap.set("n", "<C-l>", ":TmuxNavigateRight<cr>", opts) -- Navigate Right
+
 -- Confirm link insert in markdown files
-vim.keymap.set("i", "<Esc><Esc>", "<Esc>i.md<Esc>", opts) -- add .md at point
+-- vim.keymap.set("i", "<Esc><Esc>", "<Esc>i.md<Esc>", opts) -- add .md at point
+
+-- Forget Arrow Keys
+-- vim.keymap.set('!', '<Up>', '<Nop>')
+-- vim.keymap.set('!', '<Down>', '<Nop>')
+-- vim.keymap.set('!', '<Left>', '<Nop>')
+-- vim.keymap.set('!', '<Right>', '<Nop>')
 
 
 -- OPTIONS and FUNCTIONS
@@ -46,7 +62,9 @@ vim.opt.smartcase = true
 vim.opt.hlsearch = false
 
 -- Appearance
-vim.opt.linebreak = true
+vim.opt.linebreak = false
+vim.opt.wrap = false
+-- vim.opt.textwidth = 80
 vim.opt.foldenable = false
 vim.opt.foldcolumn = "1"
 vim.opt.relativenumber = true

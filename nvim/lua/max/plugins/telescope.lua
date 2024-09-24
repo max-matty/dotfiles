@@ -15,7 +15,7 @@ return
           prompt_position = "top",
         },
         path_display = {
-          shorten = 1,
+          shorten = 3,
         },
       },
     }

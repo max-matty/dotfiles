@@ -40,6 +40,18 @@ return
         lualine_y = { "progress" },
         lualine_z = { "location" },
       },
+      winbar = {
+        lualine_a = {
+          function()
+            return require('do').view('active')
+          end,
+        },
+      },
+      -- inactive_winbar = {
+      --   -- in order to prevent jumping of code in certain cursor positions this will
+      --   -- (at the moment) show an empty line - but only if .view has contents.
+      --   lualine_a = { require("do").view_inactive },
+      -- },
     })
   end
 }

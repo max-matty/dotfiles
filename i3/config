@@ -143,7 +143,7 @@ focus_follows_mouse no
 
 # start vitual machines created with virt-manager
 bindsym $mod+Control+0 exec virsh -c qemu:///system start VM-00 && sleep 2 && spicy -h localhost -p 5900 -f
-bindsym $mod+Control+1 exec virsh -c qemu:///system start VM-01 && sleep 2 && spicy -h localhost -p 5901 -f
+bindsym $mod+Control+1 exec virsh -c qemu:///system start debian12 && sleep 2 && spicy -h localhost -p 5901 -f
 bindsym $mod+Control+2 exec virsh -c qemu:///system start VM-02 && sleep 2 && spicy -h localhost -p 5902 -f
 bindsym $mod+Control+3 exec virsh -c qemu:///system start VM-03 && sleep 2 && spicy -h localhost -p 5903 -f
 bindsym $mod+Control+4 exec virsh -c qemu:///system start VM-04 && sleep 2 && spicy -h localhost -p 5904 -f

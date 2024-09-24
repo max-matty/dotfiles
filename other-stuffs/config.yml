@@ -1,13 +1,65 @@
-# baseURL: http://192.168.1.73/~max/
-languageCode: en-us
+baseURL: https://zkk.max73.net/
+
+enableRobotsTXT: false
+capitalizeListTitles: false
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+# languageCode: en-us
+defaultContentLanguage: it
+# defaultContentLanguageInSubdir: true
+languages:
+  it:
+    # baseURL: https://zkk.max73.net/
+    # contentDir: 'content/it'
+    languageName: Italiano
+    languageCode: "it"
+    weight: 1
+    # params:
+      # baseURL: https://zkk.max73.net/it/
+  en:
+    # baseURL: https://zkk.max73.net/it/
+    # contentDir: 'content/en'
+    languageName: English
+    languageCode: "en"
+    weight: 2
+    # params:
+      # baseURL: https://zkk.max73.net/it/
+
+title: Zkk
 relativeURLs: true
 theme: index        # 433 righe di codice
+
 enableInlineShortcodes: true
+
+markup:
+  highlight:
+    codeFences: true
+    guessSyntax: true
+    lineNos: false
+  goldmark:
+    renderer:
+      unsafe: true
+
 params:
+  showDescriptioninHome: false
+  hideAllTagsinHome: false
+  searchBoxPlaceholder: "Type here to search..."
+  # titleIcon: index.png
   headers:
     key: Title
     value: Tags
+    # value: Description
+permalinks:
+  tags: "@:slug"
+taxonomies:
+  tag: "tags"
+
 outputs:
   home:
     - HTML
+    - RSS
     - JSON

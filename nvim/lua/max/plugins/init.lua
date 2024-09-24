@@ -11,6 +11,21 @@ return
     config = true
   },
   { "dhruvasagar/vim-table-mode" },
+  { 
+    "kelly-lin/ranger.nvim",
+    config = function()
+      require("ranger-nvim").setup({
+        enable_cmds = true, 
+        ui = {
+          border = "single",
+          height = 1,
+          width = 1,
+          x = 0.5,
+          y = 0.5,
+        }
+      })
+    end,
+  },
   {
     "nvim-tree/nvim-tree.lua",
     version = "*",
@@ -29,10 +44,34 @@ return
       },
     },
   },
+  -- {
+  -- "luukvbaal/nnn.nvim",
+  -- config = true,
+  -- },
+  -- { "hashino/do.nvim",
+  --   config = true,
+  -- },
+  {	"wellle/tmux-complete.vim", },
+  { "christoomey/vim-tmux-navigator", },
+  {
+    "sbdchd/neoformat",
+  },
+  {
+    "otavioschwanck/arrow.nvim",
+    opts = {
+      show_icons = true,
+      leader_key = ';' -- Recommended to be a single key
+  }
+  },
+  {
+	"ellisonleao/glow.nvim",
+	config = true,
+	cmd = "Glow",
+  },
   {
     "akinsho/bufferline.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    version = "*",
+  --   version = "*",
     config = true
   },
   {
@@ -53,6 +92,14 @@ return
     config = function()
       require('zen-mode').setup({
         window = { backdrop = 1 },
+        on_open = function(win)
+          vim.opt.linebreak = true
+          vim.opt.wrap = true
+        end,
+        on_close = function()
+          vim.opt.linebreak = false
+          vim.opt.wrap = false
+        end,
       })
       require('twilight').setup({})
     end

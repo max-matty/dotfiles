@@ -38,6 +38,7 @@ URxvt*scrollBar: false
 URxvt*saveLines: 5000
   
 !URxvt*perl-ext-common: default,tabbedex,resize-font
+URxvt*perl-ext-common: resize-font
 
 !URxvt.keysym.Control-Shift-N: perl:tabbedex:new_tab
 !URxvt.keysym.Control-Shift-K: perl:tabbedex:next_tab

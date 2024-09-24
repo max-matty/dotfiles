@@ -12,6 +12,15 @@ rm -rf "$XDG_CONFIG_HOME/nvim"
 ln -s "$DOTFILES/nvim" "$XDG_CONFIG_HOME"
 
 #########
+# emacs #
+#########
+
+ln -sf "$DOTFILES/emacs/init.el" "$HOME/.emacs.d"
+ln -sf "$DOTFILES/emacs/custom-file.el" "$HOME/.emacs.d"
+ln -sf "$DOTFILES/emacs/signature" "$HOME/.emacs.d/"
+ln -sf "$DOTFILES/emacs/notmuch-config" "$HOME/.notmuch-config"
+
+#########
 # nvims #
 #########
 
@@ -44,7 +53,7 @@ ln -sf "$DOTFILES/other-stuffs/mimeapps.list" "$XDG_CONFIG_HOME"
 ######
 
 #rm -rf "$HOME/.nb"
-#ln -sf "$HOME/shared/Workspace/Zk-nb" "$HOME/.nb"
+#ln -s "$HOME/shared/Workspace/Zk-nb" "$HOME/.nb"
 
 #######
 # X11 #
@@ -97,12 +106,12 @@ ln -sf "$DOTFILES/dunst/dunstrc" "$XDG_CONFIG_HOME/dunst/dunstrc"
 # tmux #
 ########
 
-#mkdir -p "$XDG_CONFIG_HOME/tmux"
-#ln -sf "$DOTFILES/tmux/tmux.conf" "$XDG_CONFIG_HOME/tmux/tmux.conf"
+mkdir -p "$XDG_CONFIG_HOME/tmux"
+ln -sf "$DOTFILES/tmux/tmux.conf" "$XDG_CONFIG_HOME/tmux/tmux.conf"
 
-#rm -rf "$XDG_CONFIG_HOME/tmuxp"
-#ln -s "$DOTFILES/tmuxp" "$XDG_CONFIG_HOME"
+rm -rf "$XDG_CONFIG_HOME/tmuxp"
+ln -s "$DOTFILES/tmuxp" "$XDG_CONFIG_HOME"
 
-#[ ! -d "$XDG_CONFIG_HOME/tmux/plugins" ] &&
-#	git clone https://github.com/tmux-plugins/tpm \
-#		"$XDG_CONFIG_HOME/tmux/plugins/tpm"
+[ ! -d "$XDG_CONFIG_HOME/tmux/plugins" ] &&
+git clone https://github.com/tmux-plugins/tpm \
+	"$XDG_CONFIG_HOME/tmux/plugins/tpm"
