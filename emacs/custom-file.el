@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(magit consult-dir consult-notmuch marginalia org-caldav org-bullets dired-hide-dotfiles company consult orderless vertico which-key)))
+   '(visual-fill-column simple-httpd htmlize org-static-blog format-all sudo-edit listen consult-denote denote-menu markdown-mode denote magit consult-dir consult-notmuch marginalia org-caldav org-bullets dired-hide-dotfiles company consult orderless vertico which-key)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

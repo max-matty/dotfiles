@@ -1,4 +1,3 @@
-
 ;; BOOTSTRAP
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -21,12 +20,15 @@
 ;; EMACS CONFIG
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(require 'dired-x)
+
 (setq inhibit-startup-message t) ; Hide startup message.
 (setq server-client-instructions nil) ; Hide client instructions.
 (menu-bar-mode -1) ; Disable menu-bar.
 (tool-bar-mode -1) ; Disable tool-bar.
 (scroll-bar-mode -1) ; Disable scroll-bar.
 (show-paren-mode 1) ; Show matching parenthesis.
+(global-hl-line-mode t) ; Highlight current line.
 (savehist-mode 1) ; Save history when restart.
 (display-battery-mode 0) ; Hiding remain battery in modeline.
 (add-hook 'text-mode-hook 'visual-line-mode) ; Hook visual-line-mode for text documents.
@@ -35,20 +37,22 @@
 (setq next-screen-context-lines 4) ; Lines Top/Bottom before scolling.
 (setq scroll-margin 1) ; Horizontally scroll only line at point.
 (set-face-attribute 'default nil :height 150) ; Default font size.
-(setq visual-line-fringe-indicators t) ; Fringe indicators at  margins.
+;;(setq visual-line-fringe-indicators t) ; Fringe indicators at  margins.
+;;(setq-default show-trailing-whitespace t) ; Trailing whitespaces end of line.
 (column-number-mode) ; Show column numers...
 (setq column-number-indicator-zero-based nil) ; ...starting from 1.
-(setq-default show-trailing-whitespace t) ; Trailing whitespaces end of line.
 (setq-default indicate-empty-lines t) ; Empty lines at bottom of buffer.
 (setq tab-width 4) ; Set tab-width.
-(setq initial-buffer-choice "~/Downloads") ; Show this directory after boot.
-(add-to-list 'default-frame-alist '(fullscreen . fullboth)) ; Start fullscreen.
+(setq initial-buffer-choice "~/downloads") ; Show this directory after boot.
+;;(add-to-list 'default-frame-alist '(fullscreen . fullboth)) ; Start fullscreen.
 (load-theme 'modus-vivendi t) ; Load default theme.
 (setq dired-kill-when-opening-new-dired-buffer t) ; Dired open new directory in the same buffer
+(setq dired-listing-switches "-al --group-directories-first") ; List directories first
+(setq vc-follow-symlinks t) ; Follow symlinks whitout asking confirmation
 
 ;; Display date and time in modeline
 (setq display-time-string-forms
-       '((propertize (concat "(" day "/" month "/" year "-" 24-hours ":" minutes ")"))))
+      '((propertize (concat "(" day "/" month "/" year "-" 24-hours ":" minutes ")"))))
 (display-time-mode t)
 
 ;; Load some modules.
@@ -119,6 +123,14 @@
   (which-key-mode 1)
   )
 
+;; Enable rich annotations using the Marginalia package.
+(use-package marginalia
+  :ensure t
+  :bind (:map minibuffer-local-map
+              ("M-A" . marginalia-cycle))
+  :init
+  (marginalia-mode))
+
 ;; Vertical selection mode.
 (use-package vertico
   :ensure t
@@ -135,15 +147,8 @@
 	completion-category-overrides '((file (styles partial-completion))))
   )
 
-;; Enable rich annotations using the Marginalia package.
-(use-package marginalia
-  :ensure t
-  :bind (:map minibuffer-local-map
-         ("M-A" . marginalia-cycle))
-  :init
-  (marginalia-mode))
-
-;; Search better.
+;; Search with preview: 'consult' ecosystem
+;; Base package.
 (use-package consult
   :ensure t
   :bind (
@@ -155,7 +160,21 @@
   ;; Enable recent files in 'switch-buffer'.
   (recentf-mode nil)
   )
-
+;; Search with previews emails with Notmuch.
+(use-package consult-notmuch
+  :ensure t
+  )
+;; Searching in different directories.
+(use-package consult-dir
+  :ensure t
+  :bind (("C-x C-d" . consult-dir)
+         :map minibuffer-local-completion-map
+         ("C-x C-d" . consult-dir)
+         ("C-x C-j" . consult-dir-jump-file)))
+;; Search with preview 'denote' notes.
+(use-package consult-denote
+  :ensure t
+  )
 ;; Search in home directory with 'consult'.
 (defun my-search-home-dir ()
   "Search everything in home directory"
@@ -163,24 +182,20 @@
   (consult-find "~/")
   )
 
-;; Better interactions with Notmuch.
-(use-package consult-notmuch
-  :ensure t
-  )
-
-;; Searching in different directoies.
-(use-package consult-dir
-  :ensure t
-  :bind (("C-x C-d" . consult-dir)
-         :map minibuffer-local-completion-map
-         ("C-x C-d" . consult-dir)
-         ("C-x C-j" . consult-dir-jump-file)))
-
 ;; Completion.
 (use-package company
   :ensure t
   :config
   (add-hook 'after-init-hook 'global-company-mode)
+  (setq company-tooltip-minimum-width 30)
+  )
+
+;; Word wrapping at 'fill-column'
+(use-package visual-fill-column
+  :ensure t
+  :config
+  (add-hook 'text-mode-hook 'visual-fill-column-mode)
+  (add-hook 'text-mode-hook 'display-fill-column-indicator-mode)
   )
 
 ;; Sync CalDav agenda.
@@ -204,24 +219,227 @@
   (:map dired-mode-map ("." . dired-hide-dotfiles-mode))
   )
 
+;; Delete temporary file ('~').
+(defun my-dired-delete-backup-files ()
+  "Delted backup files (~) in Dired"
+  (interactive)
+  (dired-mark-files-regexp "~")
+  (dired-do-delete)
+  )
+
+;; Note taking with 'denote'
+;; Base package.
+(use-package denote
+  :ensure t
+  :config
+  (setq denote-file-type '("markdown-yaml" "org" "text"))
+  (setq denote-directory "~/org/denote/")
+  (setq denote-prompts '(title keywords file-type subdirectory))
+  (setq denote-known-keywords nil)
+  (setq denote-excluded-directories-regexp "assets")
+  (setq denote-toml-front-matter
+	"+++
+title      = %s
+date       = %s
+summary    = \" \"
+tags       = %s
+identifier = %S
+draft      = false
++++
+
+---
+
+- links:
+- zkk:
+")
+  (setq denote-yaml-front-matter
+	"---
+title:      %s
+date:       %s
+summary:    \" \"
+tags:       %s
+identifier: %S
+draft:      false
+---
+
+---
+
+- links:
+- zkk:
+")
+  (setq denote-org-front-matter
+	"#+startup:    overview shrink
+#+title:      %s
+#+date:       %s
+#+filetags:   %s
+#+identifier: %s
+
+")
+  )
+;; List notes.
+(use-package denote-menu
+  :ensure t
+  )
+
+;; View markdown files
+(use-package markdown-mode
+  :ensure t
+  :mode ("\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "pandoc")
+  :config
+  (setq markdown-max-image-size '(600 . 600))
+  )
+
 ;; 'magit' (git interface)
 (use-package magit
   :ensure t
   :config
-  (setq magit-repository-directories '(("~/dotfiles" . 1)))
+  (setq magit-repository-directories '(
+				       ("~/dotfiles" . 1)
+				       ("~/mygit/blog-posts" . 1)
+				       ))
   (setq magit-repolist-columns '(
-	  ("Name" 15 magit-repolist-column-ident nil)
-	  ("Version" 25 magit-repolist-column-version nil)
-	  ("B<U" 3 magit-repolist-column-unpulled-from-upstream
-	   ((:right-align t)
-	    (:help-echo "Upstream changes not in branch")))
-	  ("B>U" 3 magit-repolist-column-unpushed-to-upstream
-	   ((:right-align t)
-	    (:help-echo "Local changes not in upstream")))
-	  ("FLAG" 4 magit-repolist-column-flag nil)
-	  ("Path" 99 magit-repolist-column-path nil)
+				 ("Name" 15 magit-repolist-column-ident nil)
+				 ("Version" 25 magit-repolist-column-version nil)
+				 ("B<U" 3 magit-repolist-column-unpulled-from-upstream
+				  ((:right-align t)
+				   (:help-echo "Upstream changes not in branch")))
+				 ("B>U" 3 magit-repolist-column-unpushed-to-upstream
+				  ((:right-align t)
+				   (:help-echo "Local changes not in upstream")))
+				 ("FLAG" 4 magit-repolist-column-flag nil)
+				 ("Path" 99 magit-repolist-column-path nil)
+				 ))
+  )
+
+;; Listen music.
+(use-package listen
+  :ensure t
+  :config
+  (setq listen-directory "~/hdd/music_audio")
+  )
+
+;; Opening file with sudo.
+(use-package sudo-edit
+  :ensure t
+  :commands (sudo-edit)
+  )
+
+;; Format all or regions.
+(use-package format-all
+  :ensure t
+  )
+
+;; BLOGGING
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; General configurations.
+(require 'ox-publish)
+(setq org-descriptive-links nil)
+(setq org-image-actual-width 400)
+
+;; Temporary virtual host
+(use-package simple-httpd
+  :ensure t
+  :config
+  (setq httpd-port 7373)
+  )
+
+;; 'htmlize' package (export as html)
+(use-package htmlize
+  :ensure t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; With package 'org-static-blog'.
+(use-package org-static-blog
+  :ensure t
+  :config
+  (setq org-static-blog-publish-title "Zettelkasten")
+;  (setq org-static-blog-publish-url "https://blog.max73.net/")
+  (setq org-static-blog-publish-url "https://blog.massimo-fontana.net/")
+  (setq org-static-blog-publish-directory "~/web/org-static-blog/")
+  (setq org-static-blog-posts-directory "~/org/denote/blog-posts/")
+  (setq org-static-blog-drafts-directory "~/org/denote/blog-drafts/")
+  (setq org-static-blog-enable-tags t)
+  (setq org-export-with-toc t)
+  (setq org-export-with-section-numbers t)
+  (setq org-static-blog-use-preview t)
+  (setq org-static-blog-preview-start nil)
+  (setq org-static-blog-preview-end nil)
+  (setq org-static-blog-preview-ellipsis nil)
+  (setq org-static-blog-preview-link-p nil)
+  (setq org-static-blog-page-header 
+	"<meta name=\"author\" content=\"max\">
+<meta name=\"referrer\" content=\"none\">
+<link href= \"assets/style.css\" rel=\"stylesheet\" type=\"text/css\" />
+<meta http-equiv=\"content-type\" content=\"application/xhtml+xml; charset=UTF-8\">
+<meta name=\"viewport\" content=\"initial-scale=1,width=device-width,minimum-scale=1\">")
+  (setq org-static-blog-page-preamble
+	"<div class=\"header\">
+    <a href=\"https://blog.massimo-fontana.net\">Blog</a> |
+    <a href=\"https://blog.massimo-fontana.net/tag-tutorials.html\">Tutorials</a> | 
+    <a href=\"https://blog.massimo-fontana.net/tags.html\">Tags</a> | 
+    <a href=\"https://blog.massimo-fontana.net/archive.html\">Archive</a>
+ </div>")
+  (setq org-static-blog-page-postamble "")
+  (setq org-static-blog-langcode "en")
+  (setq org-static-blog-post-comments "")
+  (setq org-static-blog-index-front-matter "")
+  (setq org-static-blog-texts
+	'((other-posts
+	   ("en" . "Other posts")
+	   ("it" . "Altri articoli"))
+	  (date-format
+	   ("en" . "%d %b %Y")
+	   ("it" . "%d/%m/%Y"))
+	  (tags
+	   ("en" . "Tags")
+	   ("it" . "Categorie"))
+	  (archive
+	   ("en" . "Archive")
+	   ("it" . "Archivio"))
+	  (posts-tagged
+	   ("en" . "Posts tagged")
+	   ("it" . "Articoli nella categoria"))
+	  (no-prev-post
+	   ("en" . "There is no previous post")
+	   ("it" . "Non c'è nessun articolo precedente"))
+	  (no-next-post
+	   ("en" . "There is no next post")
+	   ("it" . "Non c'è nessun articolo successivo"))
+	  (title
+	   ("en" . "Title: ")
+	   ("it" . "Titolo: "))
+	  (filename
+	   ("en" . "Filename: ")
+           ("it" . "Nome del file: "))
 	  ))
   )
+
+;; Rsync to blog.massimo-fontana.net.
+(defun my-rsync-blog ()
+  "Rsync ~/web/org-static-blog to blog.massimo-fontana.net"
+  (interactive)
+  (async-shell-command "rsync -LuvrP --delete-after --exclude='*~' /home/max/web/org-static-blog/ root@massimo-fontana.net:/var/www/blog")
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Rsync to zkk.max73.net.
+(defun my-rsync-zkk ()
+  "Rsync ~/web/hugo-zkk to zkk.max73.net"
+  (interactive)
+  (async-shell-command "rsync -uvrP --delete-after --exclude='*~' /home/max/web/hugo-zkk/public/ root@max73.net:/var/www/zkk")
+  )
+
+;; Rsync to gallery.max73.net.
+(defun my-rsync-gallery ()
+  "Rsync ~/web/hugo-gallery/public to gallery.max73.net"
+  (interactive)
+  (async-shell-command "rsync -uvrP --delete-after --exclude='*~' /home/max/web/hugo-gallery/public/ root@max73.net:/var/www/gallery")
+  )
+
 
 ;; ORG MODE
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -247,6 +465,13 @@
 	 (file "~/.gtd/tpl/habit.txt")
 	 :prepend t
 	 )
+	("n" "Denote" plain
+         (file denote-last-path)
+         #'denote-org-capture
+         :no-save t
+         :immediate-finish nil
+         :kill-buffer t
+         :jump-to-captured t)
 	))
 
 ;; AGENDA SETTINGS
@@ -280,57 +505,58 @@
 (setq org-agenda-dim-blocked-tasks nil)
 
 (setq org-agenda-prefix-format '(
-  (agenda . " %-8T %?-12t")
-  (todo . " %-8T ")
-  (tags . " %-8T ")
-  (search . " %-8T ")
-  ))
+				 (agenda . " %-8T %?-12t")
+				 (todo . " %-8T ")
+				 (tags . " %-8T ")
+				 (search . " %-8T ")
+				 ))
 
 (setq org-agenda-time-grid '((daily today require-timed)
- (800 2000)
- "......" "--------------------"))
+			     (800 2000)
+			     "......" "--------------------"))
 
 ;; Agenda custom commands
 (setq org-agenda-custom-commands
       '(("g" "GTD" (
-	  (todo "NEXT|WAIT" (
-		   (org-agenda-overriding-header "NEXT/WAIT not in Agenda")
-		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp))
-		   (org-agenda-sorting-strategy '((tag-up)))
-		   ))
-	  (agenda "" (
-		   (org-agenda-overriding-header "Day Agenda")
-		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("CAPTURED")))
-		   (org-agenda-span 1)
-		   ))
-	  (agenda "" (
-                   (org-agenda-overriding-header "Next 3 Days")
-		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("CAPTURED")))
-		   (org-agenda-start-on-weekday nil)
-		   (org-agenda-start-day "+1d")
-		   (org-agenda-span 3)
-		   (org-agenda-show-all-dates nil)
-		   ))
-	  (agenda "" (
-                   (org-agenda-overriding-header "Pending last 30 Days")
-		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo '("TODO" "NEXT" "WAIT" "SOMEDAY")))
-		   (org-agenda-start-on-weekday nil)
-		   (org-agenda-start-day "-30d")
-		   (org-agenda-span 30)
-		   (org-agenda-show-all-dates nil)
-		   ))
-	  (todo "CAPTURED" (
-		   (org-agenda-overriding-header "To be processed")
-		   ))
-	  (todo "TODO|SOMEDAY" (
-		   (org-agenda-overriding-header "REVIEW")
-		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp))
-		   ))
-	  (tags-todo "HABIT" (
-		   (org-agenda-overriding-header "HABITS")
-		   ))
-	  ))
-      ))
+		    (todo "NEXT|WAIT" (
+				       (org-agenda-overriding-header "NEXT/WAIT not in Agenda")
+				       (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp))
+				       (org-agenda-sorting-strategy '((tag-up)))
+				       ))
+		    (agenda "" (
+				(org-agenda-overriding-header "Day Agenda")
+				(org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("CAPTURED")))
+				(org-agenda-span 1)
+				))
+		    (agenda "" (
+				(org-agenda-overriding-header "Next 3 Days")
+				(org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("CAPTURED")))
+				(org-agenda-start-on-weekday nil)
+				(org-agenda-start-day "+1d")
+				(org-agenda-span 3)
+				(org-agenda-show-all-dates nil)
+				))
+		    (agenda "" (
+				(org-agenda-overriding-header "Pending last 30 Days")
+				(org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo '("TODO" "NEXT" "WAIT" "SOMEDAY")))
+				(org-agenda-start-on-weekday nil)
+				(org-agenda-start-day "-30d")
+				(org-agenda-span 30)
+				(org-agenda-show-all-dates nil)
+				))
+		    (todo "CAPTURED" (
+				      (org-agenda-overriding-header "To be processed")
+				      ))
+		    (todo "TODO|SOMEDAY" (
+					  (org-agenda-overriding-header "REVIEW")
+					  (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp))
+					  ))
+		    (tags-todo "HABIT" (
+					(org-agenda-overriding-header "HABITS")
+					))
+		    )
+	 )
+	))
 
 ;; Show habits graph everyware.
 (defvar my-org-habit-show-graphs-everywhere nil
@@ -349,7 +575,7 @@ of displaying consistency graphs for these habits.
 When `my-org-habit-show-graphs-everywhere' is nil, this function
 has no effect."
   (when (and my-org-habit-show-graphs-everywhere
-         (not (get-text-property (point) 'org-series)))
+             (not (get-text-property (point) 'org-series)))
     (let ((cursor (point))
           item data)
       (while (setq cursor (next-single-property-change cursor 'org-marker))
@@ -423,7 +649,7 @@ has no effect."
   "Toggle hiding/showing of org emphasize markers."
   (interactive)
   (if org-hide-emphasis-markers
-    (set-variable 'org-hide-emphasis-markers nil)
+      (set-variable 'org-hide-emphasis-markers nil)
     (set-variable 'org-hide-emphasis-markers t))
   (font-lock-flush)
   (font-lock-ensure))
