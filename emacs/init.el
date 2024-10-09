@@ -78,26 +78,36 @@
 (setq notmuch-fcc-dirs nil)
 (setq notmuch-show-logo nil)
 (setq notmuch-tree-unthreaded t)
+(setq mail-signature-file "~/.emacs.d/signature")
 (setq notmuch-saved-searches '(
- (:name "new" :query "tag:new" :key "n" :sort-order newest-first)
- (:name "inbox" :query "tag:inbox" :key "i" :sort-order newest-first)
- (:name "unread" :query "tag:unread" :key "u" :sort-order newest-first)
- (:name "leggere" :query "tag:leggere" :key "l" :sort-order newest-first)
- (:name "important" :query "tag:important" :key "x" :sort-order newest-first)
- (:name "flagged" :query "tag:flagged" :key "f" :sort-order newest-first)
- (:name "sent" :query "tag:sent" :key "t" :sort-order newest-first)
- (:name "drafts" :query "tag:draft" :key "d" :sort-order newest-first)
- (:name "all mail" :query "*" :key "a" :sort-order newest-first)))
+			       (:name "new" :query "tag:new" :key "n" :sort-order newest-first)
+			       (:name "inbox" :query "tag:inbox" :key "i" :sort-order newest-first)
+			       (:name "unread" :query "tag:unread" :key "u" :sort-order newest-first)
+			       (:name "leggere" :query "tag:leggere" :key "l" :sort-order newest-first)
+			       (:name "important" :query "tag:important" :key "f" :sort-order newest-first)
+			       (:name "sent" :query "tag:sent" :key "t" :sort-order newest-first)
+			       (:name "drafts" :query "tag:draft" :key "d" :sort-order newest-first)
+			       (:name "all mail" :query "*" :key "a" :sort-order newest-first)))
 (setq notmuch-hello-sections '(notmuch-hello-insert-header notmuch-hello-insert-saved-searches))
 (setq notmuch-tagging-keys'(
-	("u" ("+unread") "unread")
-	("r" ("-unread") "read")
-	("i" ("-trash" "-spam" "+inbox") "inbox")
-	("a" ("-inbox" "-unread" "-important" "-spam") "arhive")
-	("t" ("-inbox" "-unread" "-important" "-spam" "+trash") "trash")
-	("s" ("-inbox" "-unread" "-important" "+spam") "spam")
-	("f" ("-inbox" "+important") "important")
-	))
+			    ("u" ("+unread") "unread")
+			    ("r" ("-unread") "read")
+			    ("i" ("-trash" "-spam" "+inbox") "inbox")
+			    ("a" ("-inbox" "-unread" "-important" "-spam") "arhive")
+			    ("t" ("-inbox" "-unread" "-important" "-spam" "+trash") "trash")
+			    ("s" ("-inbox" "-unread" "-important" "+spam") "spam")
+			    ("f" ("-inbox" "+important") "important")
+			    ))
+;; Insert signature at point.
+(defun message-insert-signature-at-point ()
+  "Insert signature at point."
+  (interactive)
+  (require 'message)
+  (save-restriction
+    (narrow-to-region (point) (point))
+    (message-insert-signature)))
+
+
 
 ;; PACKAGES
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -13,4 +13,4 @@ ignore=/.*[.](json|lock|bak)$/
 exclude_tags=deleted;spam;
 
 [maildir]
-#	synchronize_flags      Valid values are true and false.
+# synchronize_flags      Valid values are true and false.
